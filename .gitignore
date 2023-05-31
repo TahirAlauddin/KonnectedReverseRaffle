@@ -1,0 +1,10 @@
+
+.vscode
+
+# CACHE
+__pycache__
+
+# ENV
+*env
+
+*.f

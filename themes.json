@@ -1,0 +1,37 @@
+{
+    "themes": [
+      {
+        "name": "Midnight Oasis",
+        "colorPalette": ["#001f3f", "#1abc9c", "#ffd700", "#800080"]
+      },
+      {
+        "name": "Serene Sunrise",
+        "colorPalette": ["#ffb6c1", "#ffd700", "#e6e6fa", "#ffff99"]
+      },
+      {
+        "name": "Urban Jungle",
+        "colorPalette": ["#008000", "#808080", "#964b00", "#ff8c00"]
+      },
+      {
+        "name": "Vintage Charm",
+        "colorPalette": ["#d8bfd8", "#ffd700", "#008080", "#fffacd"]
+      },
+      {
+        "name": "Electric Dreams",
+        "colorPalette": ["#ff00ff", "#0000ff", "#00ff00", "#ffff00"]
+      },
+      {
+        "name": "Coastal Breeze",
+        "colorPalette": ["#00ffff", "#f0e68c", "#90ee90", "#ff7f50"]
+      },
+      {
+        "name": "Industrial Chic",
+        "colorPalette": ["#808080", "#a52a2a", "#000000", "#c0c0c0"]
+      },
+      {
+        "name": "Enchanted Forest",
+        "colorPalette": ["#006400", "#800000", "#808000", "#ffd700"]
+      }
+    ]
+  }
+  

@@ -1,0 +1,1284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>921</width>
+    <height>650</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>0</width>
+    <height>650</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Konnected Reverse Raffle</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../resources.qrc">
+    <normaloff>:/logo/images/logo/tcb132x132.jpeg</normaloff>:/logo/images/logo/tcb132x132.jpeg</iconset>
+  </property>
+  <widget class="QWidget" name="stylesheet">
+   <property name="styleSheet">
+    <string notr="true">* {
+font: 75 12pt &quot;Manrope&quot;;
+}
+
+#contentFrame {
+background-color: white;
+}
+
+/*********************************/
+/* Admin Page */
+
+/* ComboBox */
+#selectThemeComboBox {
+border: 1px solid rgb(167, 167, 167);
+border-radius: 5px;
+padding-left: 5px;
+}
+
+#selectThemeComboBox::down-arrow {
+	image: url(:/icons/images/icons/icons-expand-arrow.png);
+	width: 15px;
+	height: 15px;
+	padding-right: 5px;
+}
+
+#selectThemeComboBox::down-arrow:hover {
+	background-color: rgb(207, 207, 207);
+	border: 5px solid rgb(207, 207, 207);
+}
+
+#selectThemeComboBox::down-arrow:pressed {
+	background-color: rgb(226, 226, 226);
+	border: 5px solid rgb(226, 226, 226);
+}
+
+
+#selectThemeComboBox::drop-down{
+	border: none;
+}
+
+/* SPINBOX */
+#gridSizeSpinBox {
+border: 1px solid rgb(167, 167, 167);
+border-radius: 5px;
+padding-left: 5px;
+}
+
+#gridSizeSpinBox::up-button  {
+    image: url(:/icons/images/icons/icons-collapse-arrow.png);
+}
+
+#gridSizeSpinBox::down-button {
+    image: url(:/icons/images/icons/icons-expand-arrow.png);
+}
+
+
+#gridSizeSpinBox::up-button:hover,
+#gridSizeSpinBox::down-button:hover {
+    /* Define the hover effect properties */
+    /* For example, change the icon's color */
+	background-color: rgb(207, 207, 207)
+}
+
+/* DATE EDIT */
+QDateEdit::up-button:pressed,
+QDateEdit::down-button:pressed {
+    /* Define the hover effect properties */
+    /* For example, change the icon's color */
+	background-color: rgb(226, 226, 226);
+}
+
+
+/* PushButtons */
+QPushButton {
+background-color: rgb(85, 85, 255);
+border-radius: 5px;
+border: none;
+padding: 5px;
+color: white;
+}
+QPushButton::pressed {
+background-color: rgb(0, 85, 255);
+}
+
+#saveAssignNumberTableButton {
+background-color: rgb(85, 85, 127)
+}
+
+/* LINEEDITS */
+QLineEdit {
+border: 1px solid rgb(167, 167, 167);
+border-radius: 5px;
+padding: 1px 5px;
+}
+
+/* DateEdits */
+QDateEdit {
+border: 1px solid rgb(167, 167, 167);
+border-radius: 5px;
+padding: 1px 5px;
+}
+QDateEdit::up-button {
+    image: url(:/icons/images/icons/icons-collapse-arrow.png);
+}
+
+QDateEdit::down-button {
+    image: url(:/icons/images/icons/icons-expand-arrow.png);
+}
+
+
+QDateEdit::up-button:hover,
+QDateEdit::down-button:hover {
+    /* Define the hover effect properties */
+    /* For example, change the icon's color */
+	background-color: rgb(207, 207, 207)
+}
+
+QDateEdit::up-button:pressed,
+QDateEdit::down-button:pressed {
+    /* Define the hover effect properties */
+    /* For example, change the icon's color */
+	background-color: rgb(226, 226, 226);
+}
+
+
+/* FRAMES */
+#adminPageNavigationFrame {
+background-color: rgb(0, 170, 255);
+}
+#uploadLogoFrame, #uploadPrizePhotoFrame {
+background-color: white;
+}
+
+/* BUTTONS */
+#adminPageNavigationFrame QPushButton {
+background-color: rgb(24, 112, 255);
+border-radius: 5px;
+border: none;
+padding: 10px;
+color: white;
+}
+#adminPageNavigationFrame QPushButton::pressed {
+background-color: rgb(0, 85, 255);
+}
+
+/* LABELS */
+#uploadLogoLabel,  #uploadPrizePhotoLabel  {
+color: rgb(0, 170, 255);
+}
+#settingsLabel {
+font: 75 16pt &quot;Manrope&quot;;
+color: white;
+margin-bottom: 20px;
+}
+
+
+/*********************************/
+/* Grid Page */
+/* BUTTONS */
+#eventLogoBtn {
+background: transparent;
+border: none
+}
+/* FRAMES */
+#eventTitleFrame {
+background-color: rgb(99, 200, 148);
+}
+/* LABELS */
+#eliminatedNumberLabel {
+padding: 10px;
+background-color: rgb(0, 170, 255);
+color: white;
+border-bottom-left-radius: 5px;
+border-top-left-radius: 5px;
+}
+#eliminationMessageLabel {
+border: 1px solid rgb(0, 170, 255);
+}
+#recentLabel {
+font-size: 20px;
+}
+/* OTHERS */
+#recentListWidget {
+padding-top: 5px;
+padding-left: 20px;
+border: 1px solid white;
+border-color: rgb(85, 170, 255);
+border-radius: 10px;
+font-size: 20px;
+}</string>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout" stretch="5">
+    <property name="spacing">
+     <number>0</number>
+    </property>
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
+    <item>
+     <widget class="QFrame" name="contentFrame">
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_32">
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+       <item>
+        <widget class="QStackedWidget" name="adminUserStackedWidget">
+         <property name="currentIndex">
+          <number>0</number>
+         </property>
+         <widget class="QWidget" name="adminPage">
+          <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="1,4">
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QFrame" name="adminPageNavigationFrame">
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_2">
+              <item>
+               <widget class="QLabel" name="settingsLabel">
+                <property name="text">
+                 <string>Settings</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="adminSectionPushButton">
+                <property name="text">
+                 <string>Admin</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="userListPushButton">
+                <property name="text">
+                 <string>User List</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="licensePushButton">
+                <property name="text">
+                 <string>License</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="verticalSpacer_3">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>40</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QFrame" name="adminPageContentFrame">
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_3">
+              <item>
+               <widget class="QStackedWidget" name="adminPageStackedWidget">
+                <property name="currentIndex">
+                 <number>1</number>
+                </property>
+                <widget class="QWidget" name="adminSectionPage">
+                 <layout class="QHBoxLayout" name="horizontalLayout_4">
+                  <item>
+                   <widget class="QFrame" name="adminSectionPageLeftFrame">
+                    <property name="frameShape">
+                     <enum>QFrame::StyledPanel</enum>
+                    </property>
+                    <property name="frameShadow">
+                     <enum>QFrame::Raised</enum>
+                    </property>
+                    <layout class="QVBoxLayout" name="verticalLayout_4">
+                     <item>
+                      <widget class="QFrame" name="uploadLogoFrame">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="minimumSize">
+                        <size>
+                         <width>200</width>
+                         <height>150</height>
+                        </size>
+                       </property>
+                       <property name="frameShape">
+                        <enum>QFrame::StyledPanel</enum>
+                       </property>
+                       <property name="frameShadow">
+                        <enum>QFrame::Raised</enum>
+                       </property>
+                       <layout class="QVBoxLayout" name="verticalLayout_5">
+                        <property name="spacing">
+                         <number>0</number>
+                        </property>
+                        <item>
+                         <widget class="QLabel" name="uploadLogoPixmapLabel">
+                          <property name="text">
+                           <string>LOGO</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item alignment="Qt::AlignBottom">
+                         <widget class="QLabel" name="uploadLogoLabel">
+                          <property name="text">
+                           <string>[UPLOAD LOGO]</string>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QFrame" name="uploadPrizePhotoFrame">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="minimumSize">
+                        <size>
+                         <width>200</width>
+                         <height>150</height>
+                        </size>
+                       </property>
+                       <property name="frameShape">
+                        <enum>QFrame::StyledPanel</enum>
+                       </property>
+                       <property name="frameShadow">
+                        <enum>QFrame::Raised</enum>
+                       </property>
+                       <layout class="QVBoxLayout" name="verticalLayout_6">
+                        <item>
+                         <widget class="QLabel" name="uploadPrizePhotoPixmapLabel">
+                          <property name="text">
+                           <string>Prize Photo</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item alignment="Qt::AlignBottom">
+                         <widget class="QLabel" name="uploadPrizePhotoLabel">
+                          <property name="text">
+                           <string>[UPLOAD IMAGE]</string>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                     <item>
+                      <spacer name="verticalSpacer_4">
+                       <property name="orientation">
+                        <enum>Qt::Vertical</enum>
+                       </property>
+                       <property name="sizeHint" stdset="0">
+                        <size>
+                         <width>20</width>
+                         <height>40</height>
+                        </size>
+                       </property>
+                      </spacer>
+                     </item>
+                     <item>
+                      <widget class="QLabel" name="label">
+                       <property name="text">
+                        <string>Select Grid Size:</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QSpinBox" name="gridSizeSpinBox"/>
+                     </item>
+                     <item>
+                      <widget class="QPushButton" name="saveAndRunEventButton">
+                       <property name="text">
+                        <string>Save &amp;&amp; Run</string>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QFrame" name="adminSectionPageRightFrame">
+                    <property name="frameShape">
+                     <enum>QFrame::StyledPanel</enum>
+                    </property>
+                    <property name="frameShadow">
+                     <enum>QFrame::Raised</enum>
+                    </property>
+                    <layout class="QVBoxLayout" name="verticalLayout_7">
+                     <property name="bottomMargin">
+                      <number>6</number>
+                     </property>
+                     <item>
+                      <widget class="QFrame" name="frame">
+                       <property name="frameShape">
+                        <enum>QFrame::StyledPanel</enum>
+                       </property>
+                       <property name="frameShadow">
+                        <enum>QFrame::Raised</enum>
+                       </property>
+                       <layout class="QGridLayout" name="gridLayout">
+                        <item row="0" column="0">
+                         <widget class="QLabel" name="eventNameLabel">
+                          <property name="text">
+                           <string>Event Name:</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="0" column="1">
+                         <widget class="QLineEdit" name="eventNameLineEdit"/>
+                        </item>
+                        <item row="1" column="0">
+                         <widget class="QLabel" name="locationLabel">
+                          <property name="text">
+                           <string>Location:</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="1" column="1">
+                         <widget class="QLineEdit" name="locationLineEdit"/>
+                        </item>
+                        <item row="2" column="0">
+                         <widget class="QLabel" name="label_8">
+                          <property name="text">
+                           <string>Date:</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="3" column="0">
+                         <widget class="QLabel" name="label_9">
+                          <property name="text">
+                           <string>Out Message:</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="3" column="1">
+                         <widget class="QLineEdit" name="eliminationMessageLineEdit">
+                          <property name="placeholderText">
+                           <string>Eliminated</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="4" column="0">
+                         <widget class="QLabel" name="label_10">
+                          <property name="text">
+                           <string>Ads Banner Message</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="4" column="1">
+                         <widget class="QLineEdit" name="adsBannerMessageLineEdit">
+                          <property name="placeholderText">
+                           <string>Thanks for your support</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="2" column="1">
+                         <widget class="QDateEdit" name="dateEdit"/>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QFrame" name="entryCheckBoxesFrame">
+                       <property name="frameShape">
+                        <enum>QFrame::StyledPanel</enum>
+                       </property>
+                       <property name="frameShadow">
+                        <enum>QFrame::Raised</enum>
+                       </property>
+                       <layout class="QHBoxLayout" name="horizontalLayout_5">
+                        <item>
+                         <widget class="QLabel" name="label_11">
+                          <property name="text">
+                           <string>Entry:</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="checkBox">
+                          <property name="text">
+                           <string>Keypad</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="checkBox_2">
+                          <property name="text">
+                           <string>Barcode</string>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QFrame" name="selectThemeFrame">
+                       <property name="frameShape">
+                        <enum>QFrame::StyledPanel</enum>
+                       </property>
+                       <property name="frameShadow">
+                        <enum>QFrame::Raised</enum>
+                       </property>
+                       <layout class="QHBoxLayout" name="horizontalLayout_6">
+                        <item>
+                         <widget class="QComboBox" name="selectThemeComboBox"/>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QFrame" name="adminPageBackgroundImageFrame">
+                       <property name="frameShape">
+                        <enum>QFrame::StyledPanel</enum>
+                       </property>
+                       <property name="frameShadow">
+                        <enum>QFrame::Raised</enum>
+                       </property>
+                       <layout class="QVBoxLayout" name="verticalLayout_8">
+                        <property name="bottomMargin">
+                         <number>0</number>
+                        </property>
+                        <item>
+                         <widget class="QScrollArea" name="scrollArea">
+                          <property name="styleSheet">
+                           <string notr="true">QScrollArea {
+border: 1px solid rgb(181, 181, 181);
+border-radius: 5px;
+}</string>
+                          </property>
+                          <property name="widgetResizable">
+                           <bool>true</bool>
+                          </property>
+                          <widget class="QWidget" name="scrollAreaWidgetContents">
+                           <property name="geometry">
+                            <rect>
+                             <x>0</x>
+                             <y>0</y>
+                             <width>424</width>
+                             <height>212</height>
+                            </rect>
+                           </property>
+                           <layout class="QGridLayout" name="gridLayout_2" columnstretch="1,0">
+                            <item row="0" column="0">
+                             <widget class="QLabel" name="backgroundImage1Label">
+                              <property name="maximumSize">
+                               <size>
+                                <width>200</width>
+                                <height>16777215</height>
+                               </size>
+                              </property>
+                              <property name="focusPolicy">
+                               <enum>Qt::NoFocus</enum>
+                              </property>
+                              <property name="text">
+                               <string/>
+                              </property>
+                              <property name="pixmap">
+                               <pixmap>../../../../../../../Downloads/simon-berger-aZjw7xI3QAA-unsplash.jpg</pixmap>
+                              </property>
+                              <property name="scaledContents">
+                               <bool>false</bool>
+                              </property>
+                             </widget>
+                            </item>
+                            <item row="0" column="1">
+                             <widget class="QLabel" name="backgroundImage1Label_2">
+                              <property name="maximumSize">
+                               <size>
+                                <width>200</width>
+                                <height>16777215</height>
+                               </size>
+                              </property>
+                              <property name="text">
+                               <string/>
+                              </property>
+                              <property name="pixmap">
+                               <pixmap>../../../../../../../Downloads/simon-berger-aZjw7xI3QAA-unsplash.jpg</pixmap>
+                              </property>
+                             </widget>
+                            </item>
+                            <item row="1" column="1">
+                             <widget class="QLabel" name="backgroundImage1Label_4">
+                              <property name="maximumSize">
+                               <size>
+                                <width>200</width>
+                                <height>16777215</height>
+                               </size>
+                              </property>
+                              <property name="text">
+                               <string/>
+                              </property>
+                              <property name="pixmap">
+                               <pixmap>../../../../../../../Downloads/simon-berger-aZjw7xI3QAA-unsplash.jpg</pixmap>
+                              </property>
+                             </widget>
+                            </item>
+                            <item row="1" column="0">
+                             <widget class="QLabel" name="backgroundImage1Label_3">
+                              <property name="maximumSize">
+                               <size>
+                                <width>200</width>
+                                <height>16777215</height>
+                               </size>
+                              </property>
+                              <property name="text">
+                               <string/>
+                              </property>
+                              <property name="pixmap">
+                               <pixmap>../../../../../../../Downloads/simon-berger-aZjw7xI3QAA-unsplash.jpg</pixmap>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </widget>
+                         </widget>
+                        </item>
+                        <item alignment="Qt::AlignRight">
+                         <widget class="QPushButton" name="addCustomImageButton">
+                          <property name="minimumSize">
+                           <size>
+                            <width>200</width>
+                            <height>0</height>
+                           </size>
+                          </property>
+                          <property name="text">
+                           <string>Add Custom Image</string>
+                          </property>
+                          <property name="icon">
+                           <iconset resource="../resources.qrc">
+                            <normaloff>:/icons/images/icons/cil-plus.png</normaloff>:/icons/images/icons/cil-plus.png</iconset>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+                <widget class="QWidget" name="userListSectionPage">
+                 <layout class="QVBoxLayout" name="verticalLayout_9">
+                  <item>
+                   <widget class="QLabel" name="label_2">
+                    <property name="text">
+                     <string>Assign Number to Name</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QTableWidget" name="tableWidget">
+                    <property name="styleSheet">
+                     <string notr="true"/>
+                    </property>
+                    <column>
+                     <property name="text">
+                      <string>Number</string>
+                     </property>
+                    </column>
+                    <column>
+                     <property name="text">
+                      <string>Name</string>
+                     </property>
+                    </column>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QFrame" name="frame_2">
+                    <property name="frameShape">
+                     <enum>QFrame::StyledPanel</enum>
+                    </property>
+                    <property name="frameShadow">
+                     <enum>QFrame::Raised</enum>
+                    </property>
+                    <layout class="QHBoxLayout" name="horizontalLayout_7">
+                     <item>
+                      <widget class="QPushButton" name="uploadCSVButton">
+                       <property name="text">
+                        <string>Upload CSV</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QPushButton" name="downloadCSVButton">
+                       <property name="text">
+                        <string>Download CSV</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QPushButton" name="saveAssignNumberTableButton">
+                       <property name="text">
+                        <string>Save</string>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+                <widget class="QWidget" name="licenseListSectionPage">
+                 <layout class="QVBoxLayout" name="verticalLayout_10" stretch="0,0,0,0,1">
+                  <item>
+                   <spacer name="verticalSpacer">
+                    <property name="orientation">
+                     <enum>Qt::Vertical</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>20</width>
+                      <height>40</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item alignment="Qt::AlignHCenter">
+                   <widget class="QLabel" name="label_3">
+                    <property name="text">
+                     <string>Enter License Here</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item alignment="Qt::AlignHCenter">
+                   <widget class="QLineEdit" name="lineEdit">
+                    <property name="minimumSize">
+                     <size>
+                      <width>500</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>16777215</width>
+                      <height>16777215</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                  <item alignment="Qt::AlignHCenter">
+                   <widget class="QPushButton" name="pushButton_5">
+                    <property name="minimumSize">
+                     <size>
+                      <width>500</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>16777215</width>
+                      <height>16777215</height>
+                     </size>
+                    </property>
+                    <property name="text">
+                     <string>Save</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="verticalSpacer_2">
+                    <property name="orientation">
+                     <enum>Qt::Vertical</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>20</width>
+                      <height>40</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                 </layout>
+                </widget>
+               </widget>
+              </item>
+              <item>
+               <widget class="QFrame" name="credit_frame">
+                <property name="styleSheet">
+                 <string notr="true">QFrame {
+color: rgb(167, 167, 167);
+background-color: white;
+margin-left: 25px;
+margin-right: 25px;
+border-radius: 10px;
+}</string>
+                </property>
+                <property name="frameShape">
+                 <enum>QFrame::StyledPanel</enum>
+                </property>
+                <property name="frameShadow">
+                 <enum>QFrame::Raised</enum>
+                </property>
+                <layout class="QHBoxLayout" name="horizontalLayout_10">
+                 <property name="leftMargin">
+                  <number>9</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>0</number>
+                 </property>
+                 <item>
+                  <widget class="QLabel" name="label_15">
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>30</height>
+                    </size>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">margin: 5px;
+margin-left: 0px;</string>
+                   </property>
+                   <property name="text">
+                    <string>By: Tahir Alauddin © 2023</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="label_14">
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>30</height>
+                    </size>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">margin: 0px;</string>
+                   </property>
+                   <property name="text">
+                    <string>v1.0.0</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="userPage">
+          <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="1,3">
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QFrame" name="userPageLeftPane">
+             <property name="minimumSize">
+              <size>
+               <width>200</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>200</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color: rgb(85, 170, 255);</string>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_12" stretch="1,1,1,1,1">
+              <property name="spacing">
+               <number>0</number>
+              </property>
+              <item>
+               <widget class="QPushButton" name="eventLogoBtn">
+                <property name="styleSheet">
+                 <string notr="true"/>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normaloff>../images/logo/TCB LOGO-GOLD.png</normaloff>../images/logo/TCB LOGO-GOLD.png</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>150</width>
+                  <height>60</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QFrame" name="numberBallCanvasFrame">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true"/>
+                </property>
+                <property name="frameShape">
+                 <enum>QFrame::StyledPanel</enum>
+                </property>
+                <property name="frameShadow">
+                 <enum>QFrame::Raised</enum>
+                </property>
+                <layout class="QVBoxLayout" name="numberBallCanvasFrameLayout">
+                 <property name="spacing">
+                  <number>0</number>
+                 </property>
+                 <property name="leftMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>0</number>
+                 </property>
+                </layout>
+               </widget>
+              </item>
+              <item>
+               <widget class="QFrame" name="triangleBallsRemainingFrame">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true"/>
+                </property>
+                <property name="frameShape">
+                 <enum>QFrame::StyledPanel</enum>
+                </property>
+                <property name="frameShadow">
+                 <enum>QFrame::Raised</enum>
+                </property>
+                <layout class="QVBoxLayout" name="triangleBallsRemainingFrameLayout">
+                 <property name="spacing">
+                  <number>0</number>
+                 </property>
+                 <property name="leftMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>0</number>
+                 </property>
+                </layout>
+               </widget>
+              </item>
+              <item>
+               <spacer name="verticalSpacer_5">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>40</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QFrame" name="recentNumbersDrawnFrame">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="frameShape">
+                 <enum>QFrame::StyledPanel</enum>
+                </property>
+                <property name="frameShadow">
+                 <enum>QFrame::Raised</enum>
+                </property>
+                <layout class="QVBoxLayout" name="verticalLayout_13">
+                 <item>
+                  <widget class="QLabel" name="recentLabel">
+                   <property name="text">
+                    <string>Recent</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QListWidget" name="recentListWidget">
+                   <property name="styleSheet">
+                    <string notr="true">background-color: white;</string>
+                   </property>
+                   <item>
+                    <property name="text">
+                     <string>233</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>223</string>
+                    </property>
+                   </item>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QFrame" name="userPageContentFrame">
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout" stretch="1,4">
+              <item>
+               <widget class="QFrame" name="userPageContentFrameTopPane">
+                <property name="frameShape">
+                 <enum>QFrame::StyledPanel</enum>
+                </property>
+                <property name="frameShadow">
+                 <enum>QFrame::Raised</enum>
+                </property>
+                <layout class="QVBoxLayout" name="verticalLayout_11">
+                 <item>
+                  <widget class="QFrame" name="eventTitleFrame">
+                   <property name="styleSheet">
+                    <string notr="true"/>
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Raised</enum>
+                   </property>
+                   <layout class="QHBoxLayout" name="horizontalLayout_8">
+                    <item>
+                     <widget class="QLabel" name="eventTitleLabel">
+                      <property name="sizePolicy">
+                       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                        <horstretch>0</horstretch>
+                        <verstretch>0</verstretch>
+                       </sizepolicy>
+                      </property>
+                      <property name="text">
+                       <string>Event Title - Sep 10, 2023</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="Line" name="line">
+                      <property name="frameShadow">
+                       <enum>QFrame::Raised</enum>
+                      </property>
+                      <property name="orientation">
+                       <enum>Qt::Vertical</enum>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QLabel" name="adsBannerMessageLabel">
+                      <property name="styleSheet">
+                       <string notr="true"/>
+                      </property>
+                      <property name="text">
+                       <string>Thanks for your support!</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QFrame" name="eliminationMessageFrame">
+                   <property name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Raised</enum>
+                   </property>
+                   <layout class="QHBoxLayout" name="horizontalLayout_9">
+                    <property name="spacing">
+                     <number>0</number>
+                    </property>
+                    <item>
+                     <widget class="QLabel" name="eliminatedNumberLabel">
+                      <property name="sizePolicy">
+                       <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+                        <horstretch>0</horstretch>
+                        <verstretch>0</verstretch>
+                       </sizepolicy>
+                      </property>
+                      <property name="styleSheet">
+                       <string notr="true"/>
+                      </property>
+                      <property name="text">
+                       <string>108</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QLabel" name="eliminationMessageLabel">
+                      <property name="styleSheet">
+                       <string notr="true"/>
+                      </property>
+                      <property name="text">
+                       <string>Sarah Anderson Eliminated!</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+              <item>
+               <widget class="QStackedWidget" name="userStackedWidget">
+                <property name="currentIndex">
+                 <number>0</number>
+                </property>
+                <widget class="QWidget" name="gridPage">
+                 <layout class="QVBoxLayout" name="raffleGridLayout"/>
+                </widget>
+                <widget class="QWidget" name="announcementPage">
+                 <layout class="QVBoxLayout" name="verticalLayout_14">
+                  <item alignment="Qt::AlignVCenter">
+                   <widget class="QFrame" name="frame_3">
+                    <property name="frameShape">
+                     <enum>QFrame::StyledPanel</enum>
+                    </property>
+                    <property name="frameShadow">
+                     <enum>QFrame::Raised</enum>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources>
+  <include location="../resources.qrc"/>
+ </resources>
+ <connections/>
+</ui>

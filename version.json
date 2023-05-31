@@ -1,0 +1,16 @@
+{
+  
+    "version": "1.0.0",
+    "changes": [
+      "Project Initialized",
+      "Triangle, Grid and Circle Canvas created",
+      "Frontend created via Qt Designer"
+    ],
+    "release_date": "2023-06-11",
+    "author": "Tahir Alauddin",
+    "description": "Konnected Reverse Raffle is a fund raising software that utilizes Reverse Raffle in order to create thrill amongst participants.",
+    "changelog": [
+
+        ]
+    }
+    
