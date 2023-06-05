@@ -261,6 +261,32 @@
     <file>images/icons/icon_restore.png</file>
     <file>images/icons/icon_settings.png</file>
   </qresource>
+  <qresource prefix="backgroundImages">
+    <file>images/selectable images/agriculture - medium.jpg</file>
+    <file>images/selectable images/agriculture - small.jpg</file>
+    <file>images/selectable images/car - medium.jpg</file>
+    <file>images/selectable images/car - small.jpg</file>
+    <file>images/selectable images/gaming - medium.jpg</file>
+    <file>images/selectable images/gaming - small.jpg</file>
+    <file>images/selectable images/home - medium.jpg</file>
+    <file>images/selectable images/home - small.jpg</file>
+    <file>images/selectable images/medical - medium.jpg</file>
+    <file>images/selectable images/medical - small.jpg</file>
+    <file>images/selectable images/music - medium.jpg</file>
+    <file>images/selectable images/music - small.jpg</file>
+    <file>images/selectable images/school - medium.jpg</file>
+    <file>images/selectable images/school - small.jpg</file>
+    <file>images/selectable images/sports - medium.jpg</file>
+    <file>images/selectable images/sports - small.jpg</file>
+    <file>images/selectable images/agriculture.jpg</file>
+    <file>images/selectable images/car.jpg</file>
+    <file>images/selectable images/gaming.jpg</file>
+    <file>images/selectable images/home.jpg</file>
+    <file>images/selectable images/medical.jpg</file>
+    <file>images/selectable images/music.jpg</file>
+    <file>images/selectable images/school.jpg</file>
+    <file>images/selectable images/sports.jpg</file>
+  </qresource>
   <qresource prefix="logo">
     <file>images/logo/tcb132x132.jpeg</file>
     <file>images/logo/TCB LOGO-black.png</file>

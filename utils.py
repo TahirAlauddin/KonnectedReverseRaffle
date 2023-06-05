@@ -165,3 +165,15 @@ def get_file_size_mb(file_path):
         return size_mb
     else:
         return None
+
+
+
+def get_themes_names():
+    themes = get_themes()
+    return list(themes.keys())
+
+
+def get_themes():
+    with open('themes.json') as themes_file:
+        themes = json.load(themes_file)
+    return themes

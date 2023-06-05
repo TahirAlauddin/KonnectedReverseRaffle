@@ -4,7 +4,7 @@ from PyQt5.QtCore import *
 
 
 class GridItem(QWidget):
-    def __init__(self, number, *args, **kwargs):
+    def __init__(self, number, background_color, foreground_color, border_color, *args, **kwargs):
         super(GridItem, self).__init__(*args, **kwargs)
         self.setLayout(QVBoxLayout())
         self.layout().setContentsMargins(0, 0, 0, 0)
@@ -17,17 +17,17 @@ class GridItem(QWidget):
         label = QLabel(str(number))
         label.setAlignment(Qt.AlignCenter)
         inner_layout.addWidget(label)
-        inner_widget.setStyleSheet("border: 1px solid black; background: red; color: white;")  # Adjust styling here
+        inner_widget.setStyleSheet(f"background: {background_color}; color: {foreground_color}; border: 1px solid {border_color};")  # Adjust styling here
 
         self.layout().addWidget(inner_widget)
 
 
 class RaffleGridWidget(QWidget):
 
-    def __init__(self):
+    def __init__(self, background_color, foreground_color, border_color):
         super().__init__()
         
-        self.setStyleSheet('border: 1px solid red;')
+        self.setStyleSheet(f'border: 1px solid {border_color};')
         self.layout = QGridLayout()
         self.setLayout(self.layout)
         self.layout.setContentsMargins(0, 0, 0, 0)
@@ -36,7 +36,7 @@ class RaffleGridWidget(QWidget):
         num = 1
         for row in range(8):
             for column in range(10):
-                item = GridItem(num)
+                item = GridItem(num, background_color, foreground_color, border_color)
                 item.setMinimumSize(QSize(50,50))
                 self.layout.addWidget(item, row, column)
                 num += 1
