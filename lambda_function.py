@@ -14,19 +14,19 @@ def generate_license_key(length):
     return license_key
 
 
-def create_new_license_key(license_key) -> bool:
+def create_new_license_key(email_address, license_key) -> bool:
     """
     Create a new license key and save it to the DynamoDB table. 
     Returns True if the creation is successful, False otherwise.
     """
     try:
-        write_new_license_key(license_key, '')
+        write_new_license_key(email_address, license_key, '')
         return True
     except:
         return False
 
     
-def write_new_license_key(license_key, machine_id) -> bool:
+def write_new_license_key(email_address, license_key, machine_id) -> bool:
     """
     Writes a new license key to the DynamoDB table. 
     Returns True if the write is successful, False otherwise.
@@ -45,13 +45,14 @@ def write_new_license_key(license_key, machine_id) -> bool:
         # Create a resource for DynamoDB
         dynamodb = session.resource('dynamodb')
         # Specify the table name
-        table_name = "LicenseKeys"
+        table_name = "KonnectedReverseRaffleLicenseKeys"
         # Get the table
         table = dynamodb.Table(table_name)
 
         # Put the license key into the table
         table.put_item(
             Item={
+                'Email': email_address,
                 'LicenseKey': license_key,
                 'MachineID': machine_id
             }
@@ -73,10 +74,10 @@ def create_html_markup(customer_name, license_key):
             </head>
             <body>
                 <p>Hi {customer_name}!</p>
-                <p>Here is your personal Loote Licence key: {license_key}</p>
-                <p>Please direct any queries you may have to hello@loote.co.uk and we will do our best to get back to your promptly.</p>
+                <p>Here is your personal Konnected Reverse Raffle Licence key: {license_key}</p>
+                <p>Please direct any queries you may have to reverse@justkonnect.com and we will do our best to get back to your promptly.</p>
                 <p>Regards</p>
-                <p>The Loote Team</p>
+                <p>The Reverse Raffle Team</p>
             </body>
         </html>
     """
@@ -87,12 +88,11 @@ def create_email_body(customer_name, license_key):
     body_text = f"""
 Hi {customer_name}!
 
-Welcome to Konnected Reverse Raffle!
 Here is your personal Konnected Reverse Raffle Licence key: {license_key}
-Please direct any queries you may have to sam@gearcs.com and we will do our best to get back to your promptly.
+Please direct any queries you may have to reverse@justkonnect.com and we will do our best to get back to your promptly.
 
 Regards
-The Konnected Reverse Raffle Team
+The Reverse Raffle Team
     """
     return body_text
 
@@ -102,8 +102,9 @@ def send_email(to, body_text, body_html):
     that takes email address, subject and email message as 
     an argument and sends an email to the email address"""
     
-    gmail_user = 'your-gmail'
-    gmail_app_password = "password"
+    gmail_user = os.environ.get('GMAIL_USER')
+    gmail_app_password = os.environ.get('GMAIL_APP_PASSWORD')
+
     sent_from = gmail_user
     subject = "License Key for Konnected Reverse Raffle Application"
 
@@ -146,12 +147,10 @@ def lambda_handler(event, context):
                 body = json.loads(body)
         
         body = body.get('data', body)
-        contact_email = body.get('contact.Email[0]', 'gtahir1326@gmail.com')
-        customer_name = contact_email #+ "BODY" + str(body)
+        contact_email = body.get('contact_email', 'gtahir1326@gmail.com')
+        customer_name = body.get('customer_name', 'Customer')
         license_key = generate_license_key(12)
-        create_new_license_key(license_key)
-        #TODO: remove this line
-        # contact_email = "gtahir1326@gmail.com"
+        create_new_license_key(contact_email, license_key)
         
         body_html = create_html_markup(customer_name, license_key)
         body_text = create_email_body(customer_name,  license_key)
@@ -164,7 +163,7 @@ def lambda_handler(event, context):
 
     except Exception as e:
         
-        send_email("gtahir1326@gmail.com", f"{str(e)}", f"{event} \n\n\nBODY: {body}")
+        send_email("gtahir1326@gmail.com", f"{str(e)}", f"BODY: {body} \n\nERROR: {str(e)}")
         return {
            'statusCode': 404,
            'body': json.dumps(f"Error: unable to send email {e}")

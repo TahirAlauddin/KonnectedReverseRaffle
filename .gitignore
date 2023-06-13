@@ -7,4 +7,14 @@ __pycache__
 # ENV
 *env
 
-*.f
+# Advanced Installer files
+*.aip
+*-cache
+*-SetupFiles
+
+# Pyinstaller Files
+build
+dist
+*.spec
+
+

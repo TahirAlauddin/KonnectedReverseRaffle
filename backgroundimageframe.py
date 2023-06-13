@@ -7,15 +7,17 @@ class BackgroundImageFrame(QFrame):
     def __init__(self, parent, image_path=None):
         super().__init__(parent=parent)
         
+        self._pixmap = None
         # Set the widget's properties
         self.setAutoFillBackground(True)
         self.set_image(image_path)
         
 
     def set_image(self, image_path):
-        
+
         # Create the background pixmap
         if image_path:
+            
             pixmap = QPixmap(image_path)
             # Scale the pixmap to fit or fill the allocated space
             pixmap = pixmap.scaled(self.size(), Qt.IgnoreAspectRatio, Qt.SmoothTransformation)
@@ -34,5 +36,4 @@ class BackgroundImageFrame(QFrame):
             painter = QPainter(self)
             painter.drawPixmap(self.rect(), self._pixmap)
         super().paintEvent(event)
-
         

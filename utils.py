@@ -1,10 +1,15 @@
+import winreg
 import requests
 import wmi
 import json
 import re
 import os
 from PyQt5.QtCore import *
-from cryptography.fernet import Fernet
+import boto3
+from dotenv import load_dotenv
+
+load_dotenv()
+
 
 CONFIG_FILE = 'config.json'
 
@@ -16,26 +21,6 @@ def validate_email_address(email_address):
         return True
     return False
  
-
-def encrypt_string(key, plaintext):
-    """
-    Encrypts a plaintext string using a symmetric encryption algorithm (AES).
-    Returns the encrypted string as a bytes object.
-    """
-    f = Fernet(key)
-    ciphertext = f.encrypt(plaintext.encode())
-    return ciphertext.decode()
-
-def decrypt_string(key, ciphertext):
-    """
-    Decrypts a ciphertext bytes object using the symmetric encryption algorithm (AES).
-    Returns the decrypted plaintext string.
-    """
-    f = Fernet(key)
-    plaintext = f.decrypt(ciphertext).decode()
-    return plaintext
-
-
 
 def is_internet_connected():
     """
@@ -77,19 +62,19 @@ def get_machine_id():
     raise Exception("Couldn't get the Unique ID of this Machine!")
 
     
-def create_new_license_key(license_key, dynamodbTable) -> bool:
+def create_new_license_key(email_address, license_key, dynamodbTable) -> bool:
     """
     Create a new license key and save it to the DynamoDB table. 
     Returns True if the creation is successful, False otherwise.
     """
     try:
-        write_new_license_key(license_key, '', dynamodbTable)
+        write_license_key(email_address, license_key, '', dynamodbTable)
         return True
     except:
         return False
 
     
-def write_new_license_key(email_address, license_key, machine_id, dynamodbTable) -> bool:
+def write_license_key(email_address, license_key, machine_id, dynamodbTable) -> bool:
     """
     Writes a new license key to the DynamoDB table. 
     Returns True if the write is successful, False otherwise.
@@ -135,7 +120,7 @@ def license_key_is_valid(mainWindow, license_key, dynamodbTable) -> bool:
 
         # New License key created but not used yet
         # Update machine_id for license_key
-        write_new_license_key(email, license_key, machine_id, dynamodbTable)
+        write_license_key(email, license_key, machine_id, dynamodbTable)
         return True
     
 
@@ -153,6 +138,32 @@ def list_license_keys(dynamodbTable) -> dict:
                                     ] for item in response['Items']}
     
     return license_keys
+
+
+def get_dynamodb_table(table_name="KonnectedReverseRaffleLicenseKeys"):
+
+    try:
+
+        ACCESS_KEY = os.environ.get('KONNECTED_REVERSE_RAFFLE_ACCESS_KEY')
+        SECRET_KEY = os.environ.get('KONNECTED_REVERSE_RAFFLE_SECRET_KEY')
+        REGION_NAME = os.environ.get('REGION_NAME')
+
+
+        # Create a session with the AWS credentials
+        session = boto3.Session(
+            aws_access_key_id=ACCESS_KEY,
+            aws_secret_access_key=SECRET_KEY,
+            region_name=REGION_NAME
+        )
+        # Create a resource for DynamoDB
+        dynamodb = session.resource('dynamodb')
+        # Specify the table name
+        # Get the table
+        table = dynamodb.Table(table_name)
+        return table
+
+    except Exception as e:
+        return None
 
 
 def get_file_size_mb(file_path):
@@ -177,3 +188,21 @@ def get_themes():
     with open('themes.json') as themes_file:
         themes = json.load(themes_file)
     return themes
+
+
+def get_number_of_rows(grid_size, columns_constant):
+    if grid_size % columns_constant == 0:
+        return grid_size // columns_constant
+    else:
+        return (grid_size // columns_constant) + 1
+
+
+
+def get_users_desktop_folder():
+    # Open the registry key for the desktop folder
+    key = winreg.OpenKey(winreg.HKEY_CURRENT_USER, r"Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders")
+
+    # Get the value of the "Desktop" key
+    desktop_path = winreg.QueryValueEx(key, "Desktop")[0]
+
+    return desktop_path

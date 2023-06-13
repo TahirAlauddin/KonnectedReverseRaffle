@@ -1,5 +1,7 @@
 <RCC>
   <qresource prefix="icons">
+    <file>images/icons/icon-minus-yellow.png</file>
+    <file>images/icons/icon-plus-yellow.png</file>
     <file>images/icons/icons-collapse-arrow.png</file>
     <file>images/icons/icons-expand-arrow.png</file>
     <file>images/icons/cil-3d.png</file>

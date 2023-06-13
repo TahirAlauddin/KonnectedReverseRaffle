@@ -4,7 +4,11 @@
     "changes": [
       "Project Initialized",
       "Triangle, Grid and Circle Canvas created",
-      "Frontend created via Qt Designer"
+      "Frontend created via Qt Designer",
+      "Elimination and winning Logic",
+      "8 Themes provided in themes.json",
+      "Barcode scanning feature",
+      "Licensing generating and validation"
     ],
     "release_date": "2023-06-11",
     "author": "Tahir Alauddin",

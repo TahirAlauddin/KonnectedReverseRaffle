@@ -1,0 +1,1 @@
+pyinstaller -Fw --onefile --icon=images/logo/tcb132x132.jpeg main.py
