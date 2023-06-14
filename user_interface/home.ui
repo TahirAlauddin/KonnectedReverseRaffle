@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1887</width>
-    <height>1179</height>
+    <width>906</width>
+    <height>650</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -25,7 +25,10 @@
   </property>
   <widget class="QWidget" name="stylesheet">
    <property name="styleSheet">
-    <string notr="true">* {
+    <string notr="true">QFrame {
+border: none;
+}
+* {
 font: 75 12pt &quot;Manrope&quot;;
 }
 
@@ -429,7 +432,7 @@ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
               <item>
                <widget class="QStackedWidget" name="adminPageStackedWidget">
                 <property name="currentIndex">
-                 <number>0</number>
+                 <number>1</number>
                 </property>
                 <widget class="QWidget" name="adminSectionPage">
                  <layout class="QHBoxLayout" name="horizontalLayout_4">
@@ -841,8 +844,8 @@ border-radius: 5px;
                             <rect>
                              <x>0</x>
                              <y>0</y>
-                             <width>442</width>
-                             <height>271</height>
+                             <width>1215</width>
+                             <height>763</height>
                             </rect>
                            </property>
                            <layout class="QGridLayout" name="gridLayout_2" columnstretch="0"/>
@@ -889,7 +892,9 @@ border-radius: 5px;
                      <cursorShape>UpArrowCursor</cursorShape>
                     </property>
                     <property name="styleSheet">
-                     <string notr="true"/>
+                     <string notr="true">QTableWidget {
+border: 1px solid lightgrey;
+}</string>
                     </property>
                     <attribute name="horizontalHeaderVisible">
                      <bool>false</bool>
@@ -1539,7 +1544,7 @@ background: white;
               <item>
                <widget class="QStackedWidget" name="userStackedWidget">
                 <property name="currentIndex">
-                 <number>1</number>
+                 <number>0</number>
                 </property>
                 <widget class="QWidget" name="gridPage">
                  <layout class="QVBoxLayout" name="raffleGridLayout"/>

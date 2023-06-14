@@ -5,10 +5,12 @@ from interface.home import Ui_MainWindow
 from triangleArrowWidget import TriangleArrowWidget, NUMBER_TO_LIST_DICT
 from circleWidget import CircleWidget
 from rafflegrid import RaffleGridWidget
-import ctypes
 from selectablelabel import SelectableLabel
+from font_installer import install_fonts
+from pathlib import Path
 from utils import *
-from datetime import datetime
+
+import ctypes
 import csv
 import os
 
@@ -299,6 +301,8 @@ class MainWindow(QMainWindow):
                                                     custom_image=custom_image)
         selectableBackgroundImage.setScaledContents(True)
         selectableBackgroundImage.setFocusPolicy(Qt.NoFocus)
+        if os.name != 'nt':
+            image_path = image_path.replace('\\', '/')
         original_pixmap = QPixmap(image_path)
         # Calculate the desired scaled size based on the available screen space
         desired_width = self.width()  // 2  # Divide available width equally among the images
@@ -425,8 +429,8 @@ class MainWindow(QMainWindow):
         # location = 'Test location'
         # adsBannerMessage = 'Test adsBannerMessage'
         # eliminationMessage = 'Test eliminationMessage'
-        # # self.backgroundImage = ':backgroundImages/images/selectable images/gaming.jpg'
-        # # self.backgroundImage = ':backgroundImages/images/selectable images/agriculture.jpg'
+        # self.backgroundImage = ':backgroundImages/images/selectable images/gaming.jpg'
+        # self.backgroundImage = ':backgroundImages/images/selectable images/agriculture.jpg'
         # self.eventPrizePhoto = 'images/selectable images/sports - small.jpg'
         # self.eventLogo = ':/logo/images/logo/TCB LOGO-GOLD.png'
         # self.prize = 'BMW Model X'
@@ -585,10 +589,26 @@ class MainWindow(QMainWindow):
         self.ui.adminUserStackedWidget.setCurrentIndex(0)
 
 
+
+
 def main():
     global window, app
     import sys
     app = QApplication(sys.argv)
+
+    fonts = ['Manrope-Bold.ttf', 'Manrope-Light.ttf', 'Manrope-Regular.ttf']
+    # checks if font is installed on computer 
+    if not check_font_exists('Manrope'):
+        for font in fonts:
+            # Generate path dynamically for windows and mac
+            # And Install fonts using util function
+
+            # install_fonts(Path('fonts', font)) 
+            #? Instead of installing the font, better load it temporarily
+            font = load_font(Path('fonts', font).__str__())
+            # app.setFont(font)
+                        
+
     window = MainWindow()
     sys.exit(app.exec())
 

@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
-
+import os
 
 class BackgroundImageFrame(QFrame):
     def __init__(self, parent, image_path=None):
@@ -17,6 +17,8 @@ class BackgroundImageFrame(QFrame):
 
         # Create the background pixmap
         if image_path:
+            if os.name != 'nt':
+                image_path = image_path.replace('\\', '/')
             
             pixmap = QPixmap(image_path)
             # Scale the pixmap to fit or fill the allocated space

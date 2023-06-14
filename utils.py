@@ -1,12 +1,13 @@
-import winreg
+from PyQt5.QtCore import *
+from dotenv import load_dotenv
 import requests
 import wmi
 import json
 import re
-import os
-from PyQt5.QtCore import *
 import boto3
-from dotenv import load_dotenv
+import os
+import subprocess
+import platform
 
 load_dotenv()
 
@@ -49,17 +50,48 @@ def set_license_key_in_config(license_key):
         json.dump(config, config_file)
 
     
+
+
 def get_machine_id():
     """
     This function retrieves the unique machine identifier of the computer where the code is executed.
     If the function is unable to retrieve the identifying number, it raises an exception with the message 
     "Couldn't get the Unique ID of this Machine!".
     """
-    c = wmi.WMI()
-    for item in c.Win32_ComputerSystemProduct():
-        return item.IdentifyingNumber
-    
-    raise Exception("Couldn't get the Unique ID of this Machine!")
+
+    # Detecting the OS
+    current_os = platform.system().lower()
+
+    # For Windows
+    if current_os == 'windows':
+        try:
+            import wmi
+            c = wmi.WMI()
+            for item in c.Win32_ComputerSystemProduct():
+                return item.IdentifyingNumber
+        except ImportError:
+            raise Exception("The wmi module is not installed. Please install it by running 'pip install wmi'.")
+
+    # For MacOS
+    elif current_os == 'darwin':
+        try:
+            uuid = subprocess.check_output("ioreg -rd1 -c IOPlatformExpertDevice | awk '/IOPlatformUUID/ { split($0, line, \"\\\"\"); printf(\"%s\\n\", line[4]); }'", shell=True).strip().decode()
+            return uuid
+        except:
+            raise Exception("Couldn't get the Unique ID of this Machine!")
+
+    # For Linux
+    elif current_os == 'linux':
+        try:
+            uuid = subprocess.check_output(['cat', '/var/lib/dbus/machine-id']).strip().decode()
+            return uuid
+        except:
+            raise Exception("Couldn't get the Unique ID of this Machine!")
+
+    # For other OS
+    else:
+        raise Exception("Unsupported OS")
+
 
     
 def create_new_license_key(email_address, license_key, dynamodbTable) -> bool:
@@ -199,10 +231,42 @@ def get_number_of_rows(grid_size, columns_constant):
 
 
 def get_users_desktop_folder():
-    # Open the registry key for the desktop folder
-    key = winreg.OpenKey(winreg.HKEY_CURRENT_USER, r"Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders")
+    if os.name == 'nt':
+        import winreg
 
-    # Get the value of the "Desktop" key
-    desktop_path = winreg.QueryValueEx(key, "Desktop")[0]
+        # Open the registry key for the desktop folder
+        key = winreg.OpenKey(winreg.HKEY_CURRENT_USER, r"Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders")
 
-    return desktop_path
+        # Get the value of the "Desktop" key
+        desktop_path = winreg.QueryValueEx(key, "Desktop")[0]
+
+        return desktop_path
+    else:
+        return os.path.join(os.path.expanduser("~"), "Desktop")
+
+
+def check_font_exists(font):
+    if os.name == 'nt' or platform.system() == 'Windows':
+        # Windows
+        font_path = os.path.join(os.environ['WINDIR'], 'Fonts', font + '.ttf')
+        return os.path.isfile(font_path)
+    elif os.name == 'posix' or platform.system() == 'Darwin':
+        # macOS
+        font_dir = os.path.expanduser('~/Library/Fonts')
+        font_path = os.path.join(font_dir, font + '.ttf')
+        return os.path.isfile(font_path)
+    else:
+        # Unsupported OS
+        return False
+
+
+
+def load_font(font_path):
+    from PyQt5.QtGui import QFont, QFontDatabase
+    font_id = QFontDatabase.addApplicationFont(font_path)
+    font_families = QFontDatabase.applicationFontFamilies(font_id)
+    if font_families:
+        font_family = font_families[0]
+        font = QFont(font_family)
+        return font
+    
