@@ -1,24 +1,5 @@
 {
     "app_name": "Konnected Reverse Raffle",
-    "version" : "v1.0.0",
-    "copyright" : "By: Tahir Alauddin",
-    "year" : 2023,
-    "custom_title_bar": true,
-    "startup_size": [
-        1000,
-        720
-    ],
-    "minimum_size": [
-        960,
-        540
-    ],
-    "lef_menu_size" : {
-        "minimum" : 50,
-        "maximum" : 240
-    },
-    "font" : {
-        "family" : "Manrope",
-        "title_size" : 10,
-        "text_size" : 9
-    }
+    "version" : "v1.1.0",
+    "year" : 2023
 }

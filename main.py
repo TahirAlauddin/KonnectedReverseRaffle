@@ -2,20 +2,20 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 from interface.home import Ui_MainWindow
-from triangleArrowWidget import TriangleArrowWidget, NUMBER_TO_LIST_DICT
+from trianglearrowwidget import TriangleArrowWidget, NUMBER_TO_LIST_DICT
 from circleWidget import CircleWidget
 from rafflegrid import RaffleGridWidget
 from selectablelabel import SelectableLabel
-from font_installer import install_fonts
-from pathlib import Path
 from utils import *
+from licenseExpiryScheduler import LicenseExpiryThread
 
 import ctypes
 import csv
 import os
 
-myappid = 'tahiralauddin.konnectedreverseraffle.1.0.0' # arbitrary string
-ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
+if os.name == 'nt':
+    myappid = 'tahiralauddin.konnectedreverseraffle.1.1.0' # arbitrary string
+    ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
 
 SOFTWARE_PROVIDED_IMAGES_NUM = 8
 
@@ -36,16 +36,23 @@ class MainWindow(QMainWindow):
     scannerEnabled = False
     eventCompleted = False
     keypadEnabled = True
+    licenseExpired = pyqtSignal()
 
     
     def __init__(self) -> None:
         super().__init__()       
         self.scanned_data = ''
         self.ui = Ui_MainWindow()
-        self.ui.setupUi(self)
+        self.ui.setupUi(self)        
         self.Ui_Componenets()
+        self.licenseExpired.connect(self.onLicenseExpiration)
+        thread = LicenseExpiryThread(self, LICENSE_KEY_VALIDATION_LIMIT)
+        thread.run()
         self.show()
 
+    def onLicenseExpiration(self):
+        QMessageBox.warning(self, 'License Expired', 'Your License has been expired! Please renew a new license to use the software.')
+        
 
     def keyPressEvent(self, event):
         
@@ -123,7 +130,6 @@ class MainWindow(QMainWindow):
             self.ui.eliminateButton.setStyleSheet("background-color: grey;")
             self.ui.eliminateButton.setToolTip("The button is disabled.")
 
-
         # Licensing
         license_key = get_license_key_from_config()
         if license_key:
@@ -134,10 +140,10 @@ class MainWindow(QMainWindow):
     def saveLicenseKey(self):
         licenseKey = self.ui.licenseKeyLineEdit.text()
         table = get_dynamodb_table()
-        is_valid = license_key_is_valid(self, licenseKey, table)
-        if is_valid:
+        licenseCreatedDate = license_key_is_valid(licenseKey, table)
+        if licenseCreatedDate:
             self.licenseKeyValidated = True
-            set_license_key_in_config(licenseKey)
+            set_license_key_in_config(licenseKey, licenseCreatedDate)
             QMessageBox.information(self, 'Successfully Validated', 'License Key is validated. Now, you may use the software.')
             self.ui.adminPageStackedWidget.setCurrentIndex(0)
         else:
@@ -549,9 +555,10 @@ class MainWindow(QMainWindow):
         # Create a new item with the desired text.
         item = QListWidgetItem(str(eliminatedNumber))
 
-        if recentCount >= 5:
-            # If there are already 5 items, remove the last one.
-            self.ui.recentListWidget.takeItem(4)
+        #? Remove limit on recentCount
+        # if recentCount >= 5:
+        #     # If there are already 5 items, remove the last one.
+        #     self.ui.recentListWidget.takeItem(4)
 
         # Insert the new item at the top.
         self.ui.recentListWidget.insertItem(0, item)
@@ -589,30 +596,35 @@ class MainWindow(QMainWindow):
         self.ui.adminUserStackedWidget.setCurrentIndex(0)
 
 
+def pre_requisites():
+    import fonts #? Important line
+    fonts_path = ['Manrope-Bold.ttf', 'Manrope-Light.ttf', 'Manrope-Regular.ttf']
+    # checks if font is installed on computer 
+    if not check_font_exists('Manrope'):
+        for font in fonts_path:
+            # Generate path dynamically for windows and mac
+            #? Load fonts 
+            load_font(font)
 
+    # Config file must be available
+    if not os.path.exists('config.json'):
+        with open('config.json', 'w') as config_file:
+            config_file.write('{}')
+    
+    # Themes file must be available
+    if not os.path.exists('themes.json'):
+        with open('themes.json', 'w') as themes_file:
+            themes_file.write('{"Midnight Oasis": ["#001f3f", "#20466B", "#1abc9c", "#ffd700", "#005CB8"]}')
 
+    
 def main():
+    pre_requisites() # Make sure everything is setup
     global window, app
     import sys
     app = QApplication(sys.argv)
-
-    fonts = ['Manrope-Bold.ttf', 'Manrope-Light.ttf', 'Manrope-Regular.ttf']
-    # checks if font is installed on computer 
-    if not check_font_exists('Manrope'):
-        for font in fonts:
-            # Generate path dynamically for windows and mac
-            # And Install fonts using util function
-
-            # install_fonts(Path('fonts', font)) 
-            #? Instead of installing the font, better load it temporarily
-            font = load_font(Path('fonts', font).__str__())
-            # app.setFont(font)
-                        
-
     window = MainWindow()
     sys.exit(app.exec())
 
 
 if __name__ == '__main__':
     main()
-

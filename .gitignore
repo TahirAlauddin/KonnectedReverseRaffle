@@ -18,3 +18,12 @@ dist
 *.spec
 
 
+*_rc.py
+
+# Django 
+Alaudin's Application
+reverseRaffle
+manage.py
+
+# Secrets
+KonnectedReverseRaffleSoftware_accessKeys.csv

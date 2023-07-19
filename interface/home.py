@@ -14,13 +14,16 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1887, 1179)
+        MainWindow.resize(906, 650)
         MainWindow.setMinimumSize(QtCore.QSize(0, 650))
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(":/logo/images/logo/tcb132x132.jpeg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         MainWindow.setWindowIcon(icon)
         self.stylesheet = QtWidgets.QWidget(MainWindow)
-        self.stylesheet.setStyleSheet("* {\n"
+        self.stylesheet.setStyleSheet("QFrame {\n"
+"border: none;\n"
+"}\n"
+"* {\n"
 "font: 75 12pt \"Manrope\";\n"
 "}\n"
 "\n"
@@ -521,7 +524,7 @@ class Ui_MainWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 442, 271))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 1215, 763))
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
         self.gridLayout_2 = QtWidgets.QGridLayout(self.scrollAreaWidgetContents)
         self.gridLayout_2.setObjectName("gridLayout_2")
@@ -546,7 +549,9 @@ class Ui_MainWindow(object):
         self.verticalLayout_9.addWidget(self.label_2)
         self.tableWidget = QtWidgets.QTableWidget(self.userListSectionPage)
         self.tableWidget.viewport().setProperty("cursor", QtGui.QCursor(QtCore.Qt.UpArrowCursor))
-        self.tableWidget.setStyleSheet("")
+        self.tableWidget.setStyleSheet("QTableWidget {\n"
+"border: 1px solid lightgrey;\n"
+"}")
         self.tableWidget.setObjectName("tableWidget")
         self.tableWidget.setColumnCount(2)
         self.tableWidget.setRowCount(1)
@@ -907,8 +912,8 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
         self.adminUserStackedWidget.setCurrentIndex(1)
-        self.adminPageStackedWidget.setCurrentIndex(0)
-        self.userStackedWidget.setCurrentIndex(1)
+        self.adminPageStackedWidget.setCurrentIndex(1)
+        self.userStackedWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):

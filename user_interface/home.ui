@@ -351,7 +351,7 @@ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
        <item>
         <widget class="QStackedWidget" name="adminUserStackedWidget">
          <property name="currentIndex">
-          <number>1</number>
+          <number>0</number>
          </property>
          <widget class="QWidget" name="adminPage">
           <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="1,4">
@@ -432,7 +432,7 @@ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
               <item>
                <widget class="QStackedWidget" name="adminPageStackedWidget">
                 <property name="currentIndex">
-                 <number>1</number>
+                 <number>0</number>
                 </property>
                 <widget class="QWidget" name="adminSectionPage">
                  <layout class="QHBoxLayout" name="horizontalLayout_4">
@@ -844,8 +844,8 @@ border-radius: 5px;
                             <rect>
                              <x>0</x>
                              <y>0</y>
-                             <width>1215</width>
-                             <height>763</height>
+                             <width>440</width>
+                             <height>248</height>
                             </rect>
                            </property>
                            <layout class="QGridLayout" name="gridLayout_2" columnstretch="0"/>
@@ -1544,7 +1544,7 @@ background: white;
               <item>
                <widget class="QStackedWidget" name="userStackedWidget">
                 <property name="currentIndex">
-                 <number>0</number>
+                 <number>1</number>
                 </property>
                 <widget class="QWidget" name="gridPage">
                  <layout class="QVBoxLayout" name="raffleGridLayout"/>

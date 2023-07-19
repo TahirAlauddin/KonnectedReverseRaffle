@@ -6,6 +6,8 @@ import random
 import string
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+from datetime import date
+from constants import *
 
 
 def generate_license_key(length):
@@ -54,7 +56,8 @@ def write_new_license_key(email_address, license_key, machine_id) -> bool:
             Item={
                 'Email': email_address,
                 'LicenseKey': license_key,
-                'MachineID': machine_id
+                'MachineID': machine_id,
+                'Created': date.today().strftime(DATE_FORMAT)
             }
         )
         return True

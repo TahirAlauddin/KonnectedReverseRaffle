@@ -1,13 +1,15 @@
 from PyQt5.QtCore import *
 from dotenv import load_dotenv
 import requests
-import wmi
 import json
 import re
 import boto3
 import os
 import subprocess
 import platform
+from constants import *
+from datetime import datetime, timedelta
+
 
 load_dotenv()
 
@@ -39,17 +41,29 @@ def get_license_key_from_config():
     return config.get('license_key')
 
 
-def set_license_key_in_config(license_key):
+def set_license_key_in_config(license_key, licenseCreatedDate):
     """Set the license key in config.yml file for future use"""
     with open(CONFIG_FILE) as config_file:
         config = json.load(config_file)
 
     config['license_key'] = license_key
+    config['license_key_created'] = licenseCreatedDate
 
     with open(CONFIG_FILE, 'w') as config_file:
         json.dump(config, config_file)
 
     
+def delete_license_key_in_config():
+    """Delete the license key in config.yml file for future use"""
+    with open(CONFIG_FILE) as config_file:
+        config = json.load(config_file)
+
+    config['license_key'] = None
+    config['license_key_created'] = None
+
+    with open(CONFIG_FILE, 'w') as config_file:
+        json.dump(config, config_file)
+
 
 
 def get_machine_id():
@@ -123,8 +137,16 @@ def write_license_key(email_address, license_key, machine_id, dynamodbTable) -> 
         return True
     except:
         return False
+    
+# def mydecorator(func, *args, **kwargs):
+#     print(args)
+#     result = func(*args, **kwargs)
+#     if len(result) == 2:
+#         return result[0], result[1]
+#     return result, None
 
-def license_key_is_valid(mainWindow, license_key, dynamodbTable) -> bool:
+# @mydecorator
+def license_key_is_valid(license_key, dynamodbTable) -> bool:
     """
     Checks if the provided license key is present in the DynamoDB table. 
     It also makes sure that the same license key is not being used in multiple computers.
@@ -142,18 +164,27 @@ def license_key_is_valid(mainWindow, license_key, dynamodbTable) -> bool:
 
     if license_key in license_keys:
         machine_id_on_cloud = licenses[email][1]
+        license_key_generated_date = licenses[email][2]
 
         if machine_id_on_cloud:
+            # Logic for one license key on one machine
             if machine_id_on_cloud == machine_id:
-                # Valid License Key, being properly used
-                return True
+                # Logic for License key 2 months expiration 
+                if datetime.strptime(license_key_generated_date, 
+                                     DATE_FORMAT) + timedelta(
+                    days=LICENSE_KEY_VALIDATION_LIMIT) > datetime.today():
+                    # Valid License Key, being properly used
+                    return True, license_key_generated_date
+                # Cannot use same license key after LICENSE_KEY_VALIDATION_LIMIT 
+                raise Exception(LICENSE_KEY_EXPIRED_MESSAGE)
+
             # Cannot use same license key in multiple computers
             raise Exception("Cannot use same license key in multiple computers!")
 
         # New License key created but not used yet
         # Update machine_id for license_key
         write_license_key(email, license_key, machine_id, dynamodbTable)
-        return True
+        return license_key_generated_date
     
 
 def list_license_keys(dynamodbTable) -> dict:
@@ -260,13 +291,13 @@ def check_font_exists(font):
         return False
 
 
-
+    
 def load_font(font_path):
-    from PyQt5.QtGui import QFont, QFontDatabase
-    font_id = QFontDatabase.addApplicationFont(font_path)
+    from PyQt5.QtGui import QFontDatabase, QFont
+    from PyQt5.QtWidgets import QApplication
+    font_id = QFontDatabase.addApplicationFont(f':/fonts/{font_path}')
     font_families = QFontDatabase.applicationFontFamilies(font_id)
     if font_families:
         font_family = font_families[0]
         font = QFont(font_family)
-        return font
-    
+        QApplication.setFont(font)
