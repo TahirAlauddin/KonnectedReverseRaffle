@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="/static/styles/adminStyle.css" />
+  </head>
+  <body>
+
+    
+
+    <!-- Main Grid -->
+    <div class="main-grid">
+      <!-- SideBar -->
+      <div class="sidebar">
+        <!-- Sidebar Logo -->
+        <div class="sidebar-logo">
+          <img
+            src="/static/images/KONNECTED-horizontal-logo-white.png"
+            alt="Compnay logo"
+            srcset=""
+          />
+        </div>
+          
+        <!-- Empty Space -->
+        <div class="admin-profile">
+          <img src="/static/images/pfp.png" alt="profile pic" srcset="" />
+          <p class="admin-name">Sophia Anderson</p>
+        </div>
+
+        <!-- Sidebar Menu -->
+        <div class="sidebar-menu">
+          <!-- Dashboard Menu -->
+          <div class="sidebar-button" id="sidebar-dashboard-button">
+            <svg
+              width="34"
+              height="34"
+              viewBox="0 0 34 34"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g filter="url(#filter0_d_19_1505)">
+                <path
+                  d="M4 4.69444C4 2.10177 6.10177 0 8.69444 0H12.6667V26H8.69444C6.10177 26 4 23.8982 4 21.3056V4.69444ZM14.8333 26H25.3056C27.8982 26 30 23.8982 30 21.3056V18.0556H14.8333V26ZM30 15.8889V4.69444C30 2.10177 27.8982 0 25.3056 0H14.8333V15.8889H30Z"
+                />
+              </g>
+              <defs>
+                <filter
+                  id="filter0_d_19_1505"
+                  x="0"
+                  y="0"
+                  width="34"
+                  height="34"
+                  filterUnits="userSpaceOnUse"
+                  color-interpolation-filters="sRGB"
+                >
+                  <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                  <feColorMatrix
+                    in="SourceAlpha"
+                    type="matrix"
+                    values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                    result="hardAlpha"
+                  />
+                  <feOffset dy="4" />
+                  <feGaussianBlur stdDeviation="2" />
+                  <feComposite in2="hardAlpha" operator="out" />
+                  <feColorMatrix
+                    type="matrix"
+                    values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"
+                  />
+                  <feBlend
+                    mode="normal"
+                    in2="BackgroundImageFix"
+                    result="effect1_dropShadow_19_1505"
+                  />
+                  <feBlend
+                    mode="normal"
+                    in="SourceGraphic"
+                    in2="effect1_dropShadow_19_1505"
+                    result="shape"
+                  />
+                </filter>
+              </defs>
+            </svg>
+
+            <p class="button-label uncopiable">Dashboard</p>
+          </div>
+
+          <!-- User Menu -->
+          <div class="sidebar-button" id="sidebar-user-list-button">
+            <svg
+              width="30"
+              height="30"
+              viewBox="0 0 30 30"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M22.1931 17.5C23.7457 17.5 25.0042 18.7585 25.0042 20.3111V21.4591C25.0042 22.1759 24.7802 22.8746 24.3635 23.4578C22.4311 26.1618 19.2757 27.5014 15.0005 27.5014C10.7242 27.5014 7.57053 26.1613 5.64283 23.4558C5.22788 22.8734 5.00488 22.1761 5.00488 21.461V20.3111C5.00488 18.7585 6.26345 17.5 7.81597 17.5H22.1931ZM15.0005 2.50586C18.4522 2.50586 21.2505 5.30408 21.2505 8.75586C21.2505 12.2076 18.4522 15.0059 15.0005 15.0059C11.5487 15.0059 8.75045 12.2076 8.75045 8.75586C8.75045 5.30408 11.5487 2.50586 15.0005 2.50586Z"
+              />
+            </svg>
+            <p class="button-label uncopiable">User List</p>
+          </div>
+
+          <!-- License Menu -->
+          <div class="sidebar-button" id="sidebar-license-button">
+            <svg
+              width="30"
+              height="30"
+              viewBox="0 0 30 30"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M11.1865 10.7495C11.1865 6.23175 14.8562 2.56201 19.374 2.56201C23.8704 2.56201 27.5615 6.08559 27.5615 10.6245C27.5615 15.1423 23.8917 18.812 19.374 18.812C18.7111 18.812 18.0564 18.717 17.4355 18.5573C17.4051 19.3935 16.7176 20.062 15.874 20.062H13.6865V22.2495C13.6865 23.1125 12.987 23.812 12.124 23.812H9.93652V25.3745C9.93652 26.5826 8.95715 27.562 7.74902 27.562H4.62402C3.4159 27.562 2.43652 26.5826 2.43652 25.3745V22.66C2.43652 21.7484 2.79869 20.874 3.44334 20.2294L11.2381 12.4346C11.3062 12.3666 11.3469 12.2564 11.3246 12.1295C11.2492 11.7 11.1865 11.2335 11.1865 10.7495ZM22.8116 8.74954C22.8116 7.88659 22.112 7.18704 21.2491 7.18704C20.3861 7.18704 19.6866 7.88659 19.6866 8.74954C19.6866 9.61247 20.3861 10.312 21.2491 10.312C22.112 10.312 22.8116 9.61247 22.8116 8.74954Z"
+              />
+            </svg>
+            <p class="button-label uncopiable">License</p>
+          </div>
+        </div>
+      </div>
+      <!-- End SideBar -->
+
+      <!-- Menu Grid -->
+      <div class="menu-grid" id="menu-grid">
+        <!-- Upload Images -->
+        <div class="upload-images">
+          <!-- Upload Logo -->
+          <div class="upload-logo" id="upload-logo-container">
+            <img id="upload-logo-image" alt="">
+            <p id="upload-logo">Upload Your Logo</p>
+          </div>
+
+          <!-- Upload Prize Image -->
+          <div class="upload-prize-image" id="upload-prize-image-container">
+            <img id="upload-prize-image-image" alt="">
+            <p id="upload-prize-image">Upload Prize Image</p>
+          </div>
+
+          <!-- Grid Size Adjust -->
+          <div class="grid-size-adjust">
+            <p class="grid-size-text uncopiable">Select Grid Size</p>
+            <div class="custom-number-input">
+              <input
+                type="number"
+                class="grid-size-selector"
+                id="grid-size-selector"
+                min="50"
+                max="300"
+                value="50"
+              />
+              <div class="custom-arrows">
+                <div class="up-arrow" onclick="increment()">
+                  <object
+                    class="uncopiable"
+                    data="/static/images/UpArrow.svg"
+                    type=""
+                  ></object>
+                </div>
+                <div class="down-arrow" onclick="decrement()">
+                  <object
+                    class="uncopiable"
+                    data="/static/images/DownArrow.svg"
+                    type=""
+                  ></object>
+                </div>
+              </div>
+            </div>
+            <button class="run-button" id="run-button">Save & Run</button>
+          </div>
+        </div>
+        <!-- End Upload Images -->
+
+        <!-- Input Container -->
+        <div class="inputs-container">
+          <!-- Input Forms -->
+          <div class="input-forms">
+            <div class="form-group">
+              <label for="event-name-input">Event Name</label>
+              <input type="form" id="event-name-input" name="inputs" value="" />
+            </div>
+            <div class="form-group">
+              <label for="location-input">Location</label>
+              <input type="form" id="location-input" name="inputs" value="" />
+            </div>
+            <div class="form-group">
+              <label for="date-input">Date</label>
+              <input
+                type="text"
+                id="date-input"
+                name="inputs"
+                placeholder="MM-DD-YY"
+                onblur="formatDate()"
+              />
+            </div>
+            <div class="form-group">
+              <label for="our-message-input">Our Message</label>
+              <input
+                type="form"
+                id="our-message-input"
+                name="inputs"
+                value=""
+              />
+            </div>
+            <div class="form-group">
+              <label for="ads-banner-message-input">Ads Banner Message</label>
+              <input
+                type="form"
+                id="ads-banner-message-input"
+                name="inputs"
+                value=""
+              />
+            </div>
+            <div class="form-group">
+              <label for="prize-input">Prize</label>
+              <input type="form" id="prize-input" name="inputs" value="" />
+            </div>
+          </div>
+
+          <!-- Selection Elements -->
+          <div class="selection-elements">
+            <div class="theme-selection">
+              Theme
+              <div class="custom-theme-input">
+                <input type="form" class="theme-selector" id="theme-selector" />
+                <div class="custom-arrows">
+                  <div class="up-arrow" onclick="incrementTheme()">
+                    <object
+                      class="uncopiable"
+                      data="/static/images/UpArrow.svg"
+                      type=""
+                    ></object>
+                  </div>
+                  <div class="down-arrow" onclick="decrementTheme()">
+                    <object
+                      class="uncopiable"
+                      data="/static/images/DownArrow.svg"
+                      type=""
+                    ></object>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="entry">
+              <div class="entry-text">Entry:</div>
+              <div class="form-groups">
+                <p class="labels">Keypad</p>
+                <div class="check-box" id="keypad-check-box"></div>
+              </div>
+
+              <div class="form-groups">
+                <p class="labels">Barcode</p>
+                <div class="check-box" id="barcode-check-box"></div>
+              </div>
+            </div>
+          </div>
+          <!-- End Selection Elements -->
+
+          <div class="images-container">
+            <div class="images-grid" id="images-grid">
+              <!-- Images will be added here -->
+            </div>
+            <div>
+              <input
+                type="file"
+                id="image-upload"
+                style="display: none"
+                accept="image/*"
+              />
+              <button class="add-image-button" id="add-image">
+                <div class="circle">+</div>
+                Add Images
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="license-activation" id="license-activation">
+        <div class="activation-text">
+          <p>Activation</p>
+        </div>
+        <div class="activation-para">
+          {% if license_key %}
+          <p>
+            Your software program is activated.
+          </p>          
+          {% else %}
+          <p>
+            Your software program is not activated yet, please enter your
+            license key for access.
+          </p>
+        {% endif %}  
+        </div>
+        <div class="input-license">
+          <input id="input-license" type="form" name="" id="" value="{{license_key}}" />
+        </div>
+        <div class="license-button-container">
+          <button class="license-button" id="license-button">
+          {% if license_key %}
+          Update License
+          {% else %}
+          Activate License
+          {% endif %}
+          </button>
+        </div>
+      </div>
+      <div class="user-list-container" id="user-list-container">
+        <div class="user-list-heading">User List</div>
+
+        <div class="user-buttons">
+            <input
+              style="display: none"
+              type="file"
+              id="csv-input"
+              accept=".csv"
+            />
+            <button
+              class="user-button"
+              id="upload-csv-button"
+              onclick="uploadCSV()"
+            >
+              Upload CSV</button
+            ><button class="user-button" id="download-csv-button">
+              Download CSV</button
+            ><button class="user-button" id="exit-button">Save & Exit</button>
+        </div>
+
+        <div class="user-list">
+          <table id="table">
+            <tr>
+              <th class="assign-number">Assign Number</th>
+              <th class="first-name">First Name</th>
+              <th class="last-name">Last Name</th>
+              <th class="date-added">Date Added</th>
+              <th class="blank-head"></th>
+              <!-- Blank head -->
+            </tr>
+            <!-- Data will be added here -->
+          </table>
+        </div>
+        <div class="table-operations-buttons">
+          <button onclick="addRow()">+</button>
+          <button onclick="deleteRow()">-</button>
+        </div>
+
+      </div>
+      
+    </div>
+
+  <!-- Popup Error message  -->
+  <div id="message-popup" class="popup hidden">
+    <div id="popup-content" class="popup-content">
+      <span id="popup-message"></span>
+      <button id="close-btn">X</button>
+    </div>
+  </div>
+
+  </body>
+  <script src="/static/scripts/adminPageScript.js"></script>
+  <script src="/static/scripts/adminResponsivePage.js"></script>
+</html>

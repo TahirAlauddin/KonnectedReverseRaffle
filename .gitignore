@@ -20,10 +20,18 @@ dist
 
 *_rc.py
 
-# Django 
-Alaudin's Application
-reverseRaffle
-manage.py
-
 # Secrets
 KonnectedReverseRaffleSoftware_accessKeys.csv
+
+_config.json
+
+# Onedrive
+*-DESKTOP-*
+
+db.sqlite3
+
+admin_conf.pkl
+# Archives
+*.zip
+# Logs
+*.log

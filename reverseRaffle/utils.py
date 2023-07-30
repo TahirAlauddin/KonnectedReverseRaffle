@@ -1,4 +1,4 @@
-from PyQt5.QtCore import *
+# from PyQt5.QtCore import *
 from dotenv import load_dotenv
 import requests
 import json
@@ -72,13 +72,14 @@ def get_machine_id():
     If the function is unable to retrieve the identifying number, it raises an exception with the message 
     "Couldn't get the Unique ID of this Machine!".
     """
-
     # Detecting the OS
     current_os = platform.system().lower()
 
     # For Windows
     if current_os == 'windows':
         try:
+            import pythoncom
+            pythoncom.CoInitializeEx(pythoncom.COINIT_APARTMENTTHREADED)
             import wmi
             c = wmi.WMI()
             for item in c.Win32_ComputerSystemProduct():
@@ -131,7 +132,8 @@ def write_license_key(email_address, license_key, machine_id, dynamodbTable) -> 
             Item={
                 'Email': email_address,
                 'LicenseKey': license_key,
-                'MachineID': machine_id
+                'MachineID': machine_id,
+                'Created': datetime.today().strftime(DATE_FORMAT),
             }
         )
         return True
@@ -174,16 +176,18 @@ def license_key_is_valid(license_key, dynamodbTable) -> bool:
                                      DATE_FORMAT) + timedelta(
                     days=LICENSE_KEY_VALIDATION_LIMIT) > datetime.today():
                     # Valid License Key, being properly used
-                    return True, license_key_generated_date
+                    return license_key_generated_date
                 # Cannot use same license key after LICENSE_KEY_VALIDATION_LIMIT 
                 raise Exception(LICENSE_KEY_EXPIRED_MESSAGE)
 
             # Cannot use same license key in multiple computers
             raise Exception("Cannot use same license key in multiple computers!")
-
         # New License key created but not used yet
         # Update machine_id for license_key
-        write_license_key(email, license_key, machine_id, dynamodbTable)
+        if write_license_key(email, license_key, machine_id, dynamodbTable):
+            print('Successfully saved Machine ID')
+        else:
+            print('Couldn"t save machine ID')
         return license_key_generated_date
     
 
@@ -197,7 +201,8 @@ def list_license_keys(dynamodbTable) -> dict:
     # Extract the license keys from the response
     license_keys = {item['Email']: [
                                     item.get('LicenseKey'),
-                                    item.get('MachineID')
+                                    item.get('MachineID'),
+                                    item.get('Created'),
                                     ] for item in response['Items']}
     
     return license_keys
@@ -210,7 +215,6 @@ def get_dynamodb_table(table_name="KonnectedReverseRaffleLicenseKeys"):
         ACCESS_KEY = os.environ.get('KONNECTED_REVERSE_RAFFLE_ACCESS_KEY')
         SECRET_KEY = os.environ.get('KONNECTED_REVERSE_RAFFLE_SECRET_KEY')
         REGION_NAME = os.environ.get('REGION_NAME')
-
 
         # Create a session with the AWS credentials
         session = boto3.Session(
