@@ -1,0 +1,10 @@
+{
+    "Midnight Oasis": ["#001f3f", "#20466B", "#1abc9c", "#ffd700", "#005CB8"],
+    "Serene Sunrise": ["#e6e6fa", "#ffb6c1", "#9494EE", "#42426B"],
+    "Urban Jungle": ["#6B5640", "#B87737", "#808080", "#EEBE8F"],
+    "Vintage Charm": ["#008080", "#EEE277", "#fffacd", "#ffd700"],
+    "Coastal Breeze": ["#ff7f50", "#00ffff", "#90ee90", "#f0e68c"],
+    "Industrial Chic": ["#000000", "#fff", "#808080", "#c0c0c0"],
+    "Electric Dreams": ["#F00C46", "#ff00ff", "#0CAEFA", "#fff"],
+    "Enchanted Forest": ["#EB17A6", "#0C6DEB", "#808000", "#ffd700"]
+}

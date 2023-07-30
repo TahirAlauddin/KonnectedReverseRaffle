@@ -1,0 +1,16 @@
+boto3
+botocore
+certifi
+chardet
+charset-normalizer
+fonttools
+idna
+jmespath
+python-dateutil
+python-dotenv
+requests
+s3transfer
+six
+urllib3
+flask
+py2app

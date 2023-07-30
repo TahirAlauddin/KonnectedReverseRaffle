@@ -1,8 +1,0 @@
-<!DOCTYPE RCC>
-<RCC version="1.0">
-    <qresource>
-        <file>fonts/Manrope-Bold.ttf</file>
-        <file>fonts/Manrope-Regular.ttf</file>
-        <file>fonts/Manrope-Light.ttf</file>
-    </qresource>
-</RCC>

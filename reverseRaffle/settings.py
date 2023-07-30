@@ -60,7 +60,7 @@ ROOT_URLCONF = 'reverseRaffle.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'reverseRaffle' / 'frontend' / 'templates'],
+        'DIRS': [BASE_DIR / 'frontend' / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -123,11 +123,11 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [
-    BASE_DIR / "reverseRaffle" / "frontend" / "static",
+    BASE_DIR / "frontend" / "static",
 ]
 
 MEDIA_URL = 'media/'
-MEDIA_ROOT = BASE_DIR / "reverseRaffle" / "frontend" / 'media'
+MEDIA_ROOT = BASE_DIR / "frontend" / 'media'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

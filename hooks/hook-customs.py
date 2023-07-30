@@ -3,7 +3,7 @@ from PyInstaller.utils.hooks import collect_submodules
 hiddenimports = []
 
 # Read the requirements.txt file
-with open('requirements-server.txt', 'r') as file:
+with open('requirements.txt', 'r') as file:
     lines = file.readlines()
     for line in lines:
         # Extract the package name before any version specifier

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="/static/styles/style.css" />
+    <style id="head-style"></style>
+  </head>
+    <body>
+    <div class="main-grid">
+      <div class="uncopiable winner-container" id="winner-container">
+        <img src="/static/images/win-bg.png" alt="Your Image" />
+        <div class="winner-border">
+          <p class="winner-message">WINNER</p>
+          <p class="winner-congratulations">CONGRATULATIONS!</p>
+
+          <div class="winner-number-ball" id="winner-number-ball">49</div>
+
+          <p class="winner-name" id="winner-name">LUCAS WESTWOOD</p>
+          <div class="winner-prize-image">
+            <img id="winner-prize-image" src="/media/Prize Image.png" alt="" />
+          </div>
+          <p style="margin-top: 5px;" class="winner-prize">PRIZE</p>
+          <p class="winner-prize-name" id="winner-prize-name">BMW Model XX</p>
+        </div>
+      </div>
+
+      <div class="banner-text">
+        <p id="banner-text">Text ads Banner Message</p>
+      </div>
+
+      <div class="event-info">
+        <div class="event-info-inner">
+          <p class="event-name" id="event-name">Event Name</p>
+          <p class="event-date" id="event-date">Event Date</p>
+        </div>
+
+        <p class="last-eliminated" id="last-eliminated-header"># -</p>
+      </div>
+
+      <div class="number-panel-grid" id="number-panel-grid">
+        <div
+          class="popup-outer-ball center-align-flex round-div"
+          id="elimination-ball"
+        >
+          <div class="popup-ball-gradient-border center-align-flex round-div">
+            <div class="uncopiable popup-inner-ball center-align-flex round-div">
+              <p class="elimination-number" id="elimination-number"></p>
+              <p class="elimination-heading secondary-text-color">Sorry</p>
+              <p class="elimination-text secondary-text-color">
+                Your Ticket Has Been Pulled.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="uncopiable final-border" id="final-border">
+          <div class="final-container" id="final-container">
+            <p class="final-heading" id="final-heading">Final 10</p>
+            <div class="final-10-grid"></div>
+          </div>
+        </div>
+
+        <div class="uncopiable final-border back-container" id="back-container">
+          <div class="final-container">
+            <div class="outer-ball center-align-flex sidebar-ball final-sidebar-ball round-div">
+              <div
+                class="ball-gradient-border center-align-flex sidebar-ball final-sidebar-ball round-div"
+              >
+                <div
+                  class="inner-ball center-align-flex sidebar-ball final-sidebar-ball round-div"
+                >
+                  <p id="back-number"></p>
+                </div>
+              </div>
+            </div>
+
+            <p class="back-text">You're</p>
+            <p class="back-heading">Back in!</p>
+          </div>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div class="sidebar-logo uncopiable">
+          <img
+            id="logo-image"
+            src="/media/Logo.png"
+            alt="logo-image"
+            srcset=""
+          />
+        </div>
+
+        <div class="last-elimination uncopiable">Last Eliminated</div>
+
+        <div class="outer-ball center-align-flex sidebar-ball round-div">
+          <div
+            class="ball-gradient-border center-align-flex sidebar-ball round-div"
+          >
+            <div class="inner-ball center-align-flex sidebar-ball round-div">
+              <p class="uncopiable" id="last-eliminated"></p>
+            </div>
+          </div>
+        </div>
+        <div class="progress-bar">
+          <div id="progress-bar" class="progress"></div>
+        </div>
+
+        <div class="tickets-numbers">
+          <div class="tickets-drawn">
+            <p class="heading">TICKETS DRAWN</p>
+            <p class="ticket-number uncopiable" id="drawn-tickets-number">-</p>
+          </div>
+          <div class="line"></div>
+          <div class="tickets-undrawn">
+            <p class="heading uncopiable">TICKETS UNDRAWN</p>
+            <p class="ticket-number uncopiable" id="undrawn-tickets-number">
+              -
+            </p>
+          </div>
+        </div>
+
+        <div class="recent-drawn-tickets">
+          <p class="heading uncopiable">RECENT DRAWN</p>
+          <div class="recent-drawn-numbers">
+            <!-- <p class="ticket-number uncopiable"></p>
+            <p class="ticket-number uncopiable"></p>
+            <p class="ticket-number uncopiable"></p>
+            <p class="ticket-number uncopiable"></p> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="/static/scripts/responsivePage.js"></script>
+  <script type="module" src="/static/scripts/generateGrids.js"></script>
+  <script src="/static/scripts/script.js"></script>
+</html>

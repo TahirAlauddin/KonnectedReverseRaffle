@@ -170,6 +170,7 @@ def license_key_is_valid(license_key, dynamodbTable) -> bool:
 
         if machine_id_on_cloud:
             # Logic for one license key on one machine
+            print(machine_id, machine_id_on_cloud)
             if machine_id_on_cloud == machine_id:
                 # Logic for License key 2 months expiration 
                 if datetime.strptime(license_key_generated_date, 

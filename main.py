@@ -114,7 +114,7 @@ class SubprocessThread(QThread):
 
     def run(self):
         # Detect if running as a PyInstaller package
-        if getattr(sys, 'frozen', True):
+        if getattr(sys, 'frozen', False):
             command = f'konnected-server.exe runserver {PORT} --noreload'
             subprocess.Popen(command, shell=True)
             # Check for output
