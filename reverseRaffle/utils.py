@@ -217,6 +217,7 @@ def get_dynamodb_table(table_name="KonnectedReverseRaffleLicenseKeys"):
         SECRET_KEY = os.environ.get('KONNECTED_REVERSE_RAFFLE_SECRET_KEY')
         REGION_NAME = os.environ.get('REGION_NAME')
 
+
         # Create a session with the AWS credentials
         session = boto3.Session(
             aws_access_key_id=ACCESS_KEY,

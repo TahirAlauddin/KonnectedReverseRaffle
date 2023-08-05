@@ -7,7 +7,7 @@ from PyQt5.QtWebEngineWidgets import QWebEnginePage
 import urllib3
 import ctypes
 
-myappid = 'tahiralauddin.konnected-reverse-raffle.1.0.0' # arbitrary string
+myappid = 'tahiralauddin.konnected-reverse-raffle.1.1.0' # arbitrary string
 ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
 
 PORT = 8323
@@ -76,7 +76,7 @@ class LoadingPage(QMainWindow):
         self.setStyleSheet(qss_style)
         
         self.setWindowTitle("Konnected Reverse Raffle")
-        self.setWindowIcon(QIcon("images/logo/konnected-logo-icon.png"))
+        self.setWindowIcon(QIcon("images/logo/konnected-logo-icon.ico"))
         
         self.setMinimumWidth(1000)
         self.setMinimumHeight(650)
@@ -91,10 +91,13 @@ class LoadingPage(QMainWindow):
         self.setCentralWidget(self.browser)
         self.browser.load(QUrl(f'http://localhost:{PORT}/admin/')) # or the URL you want to load
 
+    def closeEvent(self, event):
+        self.subprocess_thread.stop() # Call the stop method of the thread
+        event.accept() # Accept the close event
 
 class SubprocessThread(QThread):
     output_detected = pyqtSignal()
-
+    process = None
     def is_server_responding(url):
         # retries = urllib3.Retry(total=50, backoff_factor=0.1, status_forcelist=[500, 502, 503, 504])
         http = urllib3.PoolManager()
@@ -112,11 +115,17 @@ class SubprocessThread(QThread):
         return False
 
 
+    def stop(self):
+        if self.process:
+            self.process.terminate()
+            self.process = None
+
+
     def run(self):
         # Detect if running as a PyInstaller package
         if getattr(sys, 'frozen', False):
             command = f'konnected-server.exe runserver {PORT} --noreload'
-            subprocess.Popen(command, shell=True)
+            self.process = subprocess.Popen(command, shell=True)
             # Check for output
             while True:
                 try:
@@ -145,7 +154,9 @@ class Browser(QWebEngineView):
         self.setMinimumHeight(650)
         
         self.setWindowTitle("Konnected Reverse Raffle")
-        self.setWindowIcon(QIcon("images/logo/konnected-logo-icon.png"))
+        self.setWindowIcon(QIcon("images/logo/konnected-logo-icon.ico"))
+
+        self.showMaximized()
 
     def contextMenuEvent(self, event):
         context_menu = QMenu(self)
@@ -160,20 +171,6 @@ class Browser(QWebEngineView):
 
     def reloadPage(self):
         self.reload()
-
-
-# if __name__ == "__main__":
-#     # browser = HtmlGetter('http://localhost:{PORT}/admin/')
-#     import sys
-#     import subprocess
-#     # Detect if running as a PyInstaller package
-#     if getattr(sys, 'frozen', False):
-#         subprocess.run(f'konnected-server.exe runserver {PORT} --noreload')
- 
-#     app = QApplication(sys.argv)
-#     browser = Browser()
-#     browser.show()
-#     sys.exit(app.exec_())
 
 
 if __name__ == '__main__':

@@ -28,7 +28,8 @@ def view_validate_license_key(request, licenseKey):
         # If license exists, write/update it to config file
         if licenseCreatedDate:
             set_license_key_in_config(licenseKey, licenseCreatedDate)
-        return JsonResponse({'success': 'License Key successfully validated'}, status=200)
+            return JsonResponse({'success': 'License Key successfully validated'}, status=200)
+        return JsonResponse({'error': 'License Key couldn\'t be validated'}, status=400)
 
     except Exception as e:
         from traceback import print_exc

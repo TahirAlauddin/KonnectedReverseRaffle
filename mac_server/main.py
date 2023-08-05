@@ -26,7 +26,7 @@ def view_admin_page():
     except Exception as e:
         logger.error(e)
         print(e)
-        raise(e)
+        # raise(e)
         return "An Error Occurred!"
 
 

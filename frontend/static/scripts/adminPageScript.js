@@ -458,8 +458,9 @@ document
 function formatDate() {
   var input = document.getElementById("date-input").value;
   var dateParts = input.split("-");
-  var dateObject = new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]); // Please note that month is 0-based
-
+  console.log(dateParts)
+  var dateObject = new Date(+dateParts[2], dateParts[0] - 1, +dateParts[1]); // Please note that month is 0-based
+  console.log(dateObject)
   var monthNames = [
     "January",
     "February",
@@ -612,8 +613,10 @@ document.getElementById('exit-button').addEventListener('click', function () {
 
 document.getElementById('license-button').addEventListener('click', function () {
   license_key = document.getElementById('input-license').value
-  console.log(license_key);
   
+  if (!license_key) {
+    return;
+  }
   // POST CSV data to the server
   fetch(`${host}/validateLicenseKey/${license_key}`, {
     headers: {
