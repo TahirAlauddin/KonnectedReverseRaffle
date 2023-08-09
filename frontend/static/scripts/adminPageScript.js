@@ -31,7 +31,6 @@ function addRow() {
     button.className = "delete-row-table";
     cell.appendChild(button);
     row.appendChild(cell);
-    
     table.appendChild(row);
 
 }
@@ -60,7 +59,6 @@ function showMessage(message, type) {
     popupContent.style.color = "white"
     popupContent.style.borderColor = "#b22234"
     closeBtn.style.backgroundColor = "#b22234"
-
   }
 
   popupMessage.textContent = message;
@@ -93,7 +91,7 @@ function decrement() {
 }
 
 // Functions for changing themes
-const themes = ["Black", "Pink", "Purple", "Yellow"];
+const themes = ["Black", "Pink", "Purple", "Yellow", "Aqua", "Sunset", "Flower", "Industrial", "Midnight"];
 let currentThemeIndex = 0;
 let participantsDataSaved = false;
 
@@ -120,6 +118,7 @@ updateTheme();
 // Functions to add image to grid
 document.getElementById("add-image").addEventListener("click", function () {
   document.getElementById("image-upload").click();
+  
 });
 
 document.getElementById("image-upload").addEventListener("change", function () {
@@ -131,7 +130,45 @@ document.getElementById("image-upload").addEventListener("change", function () {
       var img = document.createElement("img");
       img.src = e.target.result;
       div.appendChild(img);
+      img.addEventListener("click", function(event) {
+        // if there is a previously selected image, remove its class
+        if (selectedImg || selectedImg == event.target) {
+          selectedImg.classList.remove('selected-image');
+          selectedImg = null;
+          selectedImgPath = null;
+        }
+        else {
+          // add class to the clicked image and update selectedImg
+          event.target.classList.add('selected-image');
+          selectedImg = event.target;
+          selectedImgPath = selectedImg.getAttribute('data-path');
+        }
+      });
       document.getElementById("images-grid").appendChild(div);
+      
+      // Making a POST request to save the image data
+      fetch(`${host}/saveImage/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          image: e.target.result,
+        }),
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log("Image saved successfully!", data);
+        // Extracting just the file name (e.g., "abc.png")
+        var fileName = data.file_path.split('\\').pop();
+        console.log(fileName)
+        // Constructing the new path
+        var mediaUrl = "/media/" + fileName;
+        img.setAttribute('data-path', mediaUrl);
+      })
+      .catch(error => {
+        console.error("Error saving image:", error);
+      });
     };
     reader.readAsDataURL(this.files[0]);
   }
@@ -162,6 +199,7 @@ function uploadImages() {
       if (selectedImg || selectedImg == event.target) {
         selectedImg.classList.remove('selected-image');
         selectedImg = null;
+        selectedImgPath = null;
       }
       else {
         // add class to the clicked image and update selectedImg
@@ -169,7 +207,6 @@ function uploadImages() {
         selectedImg = event.target;
         selectedImgPath = selectedImg.src;
       }
-      console.log(selectedImg)
     });
 
     div.appendChild(img);
@@ -207,11 +244,6 @@ function uploadCSV() {
 
       let table = document.getElementById("table");
 
-      // Clear existing table contents
-      // while (table.firstChild) {
-      //   table.firstChild.remove();
-      // }
-
       let arr = [
         "assign-number",
         "first-name",
@@ -225,20 +257,6 @@ function uploadCSV() {
         // Record the selected row
         selectedRow = this;  
       };
-
-      // // Create Header
-      // for (let j = 0; j < headers.length; j++) {
-      //   let cell = document.createElement("th");
-      //   cell.textContent = headers[j];
-      //   cell.classList.add(arr[j]);
-      //   row.appendChild(cell);
-      // }
-
-      // let cell = document.createElement("th");
-      // cell.textContent = "";
-      // row.appendChild(cell);
-      // table.appendChild(row);
-
 
       for (let i = 0; i < rows.length; i++) {
         let row = document.createElement("tr");
@@ -274,8 +292,6 @@ function uploadCSV() {
     };
     reader.readAsText(file);
 });
-
-    
 }
 
 // Functions to handle sidebar buttons
@@ -402,7 +418,7 @@ function displayImage(file, containerId, imageId, headingText) {
     reader.onload = function(event) {
         let dataUrl = event.target.result;
 
-        fetch('/savePrizeImage/', {
+        fetch('/saveImage/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -454,53 +470,24 @@ document
     }
   });
 
-// Functions to manage Date Format
-function formatDate() {
-  var input = document.getElementById("date-input").value;
-  var dateParts = input.split("-");
-  console.log(dateParts)
-  var dateObject = new Date(+dateParts[2], dateParts[0] - 1, +dateParts[1]); // Please note that month is 0-based
-  console.log(dateObject)
-  var monthNames = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-
-  if (!isNaN(dateObject.getTime())) {
-    document.getElementById("date-input").value =
-      monthNames[dateObject.getMonth()] +
-      " " +
-      dateObject.getDate() +
-      ", " +
-      dateObject.getFullYear();
-  } else {
-    document.getElementById("date-input").value = "Invalid Date";
-  }
-}
 
 document.getElementById('run-button').addEventListener('click', function () {
-  const event_name = document.getElementById('event-name-input').value
-  const event_date = document.getElementById('date-input').value
-  const ads_banner_message = document.getElementById('ads-banner-message-input').value
-  const prize = document.getElementById('prize-input').value
-  const theme = document.getElementById('theme-selector').value
-  const keypad_checked = document.getElementById('keypad-check-box').innerHTML
-  const barcode_checked = document.getElementById('barcode-check-box').innerHTML
-  const location = document.getElementById('location-input').value
-  const our_message = document.getElementById('our-message-input').value
-  const prize_image_path = document.getElementById('upload-prize-image-image').src
-  const logo_image_path = document.getElementById('upload-logo-image').src
-  const grid_size = document.getElementById('grid-size-selector').value;
+  let event_name = document.getElementById('event-name-input').value
+  let event_date = document.getElementById('date-input').value
+  let ads_banner_message = document.getElementById('ads-banner-message-input').value
+  let prize = document.getElementById('prize-input').value
+  let theme = document.getElementById('theme-selector').value
+  let keypad_checked = document.getElementById('keypad-check-box').innerHTML
+  let barcode_checked = document.getElementById('barcode-check-box').innerHTML
+  let location = document.getElementById('location-input').value
+  let our_message = document.getElementById('our-message-input').value
+  let prize_image_path = document.getElementById('upload-prize-image-image').src
+  let logo_image_path = document.getElementById('upload-logo-image').src;
+  let grid_size = document.getElementById('grid-size-selector').value;
+
+  if (logo_image_path == [undefined]) {
+    logo_image_path = undefined
+  }
   
   function validateInputs() {
     var variables = [event_name, event_date, ads_banner_message, prize, theme];
@@ -512,8 +499,8 @@ document.getElementById('run-button').addEventListener('click', function () {
         return false; 
       }
     }
-    if (!(logo_image_path && prize_image_path)) {
-      showMessage('Please make sure both images are provided!', 'error')
+    if (!(prize_image_path)) {
+      showMessage('Please make sure the prize image is provided!', 'error')
       return false; 
     }
     if (! (barcode_checked || keypad_checked)) {
@@ -535,7 +522,7 @@ document.getElementById('run-button').addEventListener('click', function () {
         window.location.href = `/home?background_image=${selectedImgPath}&event_name=${event_name}
     &event_date=${event_date}&location=${location}&ads_banner_message=${ads_banner_message}
     &our_message=${our_message}&prize=${prize}&theme=${theme}&keypad_checked=${keypad_checked}
-    &barcode_checked=${barcode_checked}&grid_size=${grid_size}`
+    &barcode_checked=${barcode_checked}&grid_size=${grid_size}&logo_image_path=${logo_image_path}`
       }
   } else {
     showMessage('License Key is Required!', 'error')
@@ -575,7 +562,6 @@ function downloadTableAsCSV() {
 
 // Add an event listener to the button
 document.getElementById('download-csv-button').addEventListener('click', downloadTableAsCSV);
-
 
 document.getElementById('exit-button').addEventListener('click', function () {
 

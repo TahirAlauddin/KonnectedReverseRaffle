@@ -46,3 +46,11 @@ export function setEventInfoDate(date) {
 export function addBackground(imageUrl) {
     document.getElementById("number-panel-grid").setAttribute('style', `background-image: url("${imageUrl}"); background-repeat: no-repeat; background-size: cover;`);
 }
+
+
+// Create the named function to block mouse presses
+export function blockMousePress(e) {
+    e.preventDefault();
+    console.log('Mouse press blocked!');
+  }
+  

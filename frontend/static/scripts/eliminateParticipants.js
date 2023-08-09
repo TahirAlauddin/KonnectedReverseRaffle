@@ -1,18 +1,61 @@
 import { setRecentDrawnTickets, setEliminationText } from "./utils.js";
-import { setBackInText } from "./utils.js";
+import { setBackInText, blockMousePress } from "./utils.js";
 
 var timer;
 var hiddenContainer;
+
+let lastInvocationTime = 0; // Outside of your function to track the last time the function was invoked
+
+function onEnterPressed(event) {
+
+  let currentTime = Date.now();
+
+  // If the time since the last invocation is less than 1 second, return without executing any logic.
+  if (currentTime - lastInvocationTime < 1000) {
+    return;
+  }
+
+  let eliminationNumber = document.getElementById('grid-size-selector').value;
+
+  if (event.shiftKey && event.key === 'Enter') {
+    let divElement = document.getElementById(eliminationNumber);
+
+    // Create a new click event with the CTRL key pressed
+    var newEvent = new MouseEvent("click", {
+      'bubbles': true,
+      'cancelable': true,
+      'view': window,
+      'ctrlKey': true // Add this property to indicate the CTRL key is pressed
+    });
+  
+    // Dispatch the event on the div
+    divElement.dispatchEvent(newEvent);
+    // Update the lastInvocationTime
+    lastInvocationTime = currentTime;
+  
+  }
+
+  else if (event.key === 'Enter') {
+    document.getElementById(eliminationNumber).click();
+    // Update the lastInvocationTime
+    lastInvocationTime = currentTime;
+  }
+}
+
+// Add the listener
+document.addEventListener('keydown', onEnterPressed);
 
 export function generateFinalGrid(nameList, numberList, assignedNumbers) {
 
   const gridData = {};
 
   // Remove numbers from assignedNumbers based on values in numberList
-  assignedNumbers = assignedNumbers.filter(number => !numberList.includes(number));
-  for (let i = 0; i < assignedNumbers.length; i++) {
-    const number = assignedNumbers[i];
-    const name = nameList[i];
+  let filteredAssignedNumbers = assignedNumbers.filter(number => !numberList.includes(number));
+  let idx, number, name;
+  for (let i = 0; i < filteredAssignedNumbers.length; i++) {
+    number = filteredAssignedNumbers[i];
+    idx = assignedNumbers.indexOf(number);
+    name = nameList[idx];
     gridData[number] = name;
   }
 
@@ -35,21 +78,15 @@ export function generateFinalGrid(nameList, numberList, assignedNumbers) {
   resetContainer(finalContainer);
 }
 
-export function generateWinnerBanner(nameList, numberList, totalNumbers) {
+export function generateWinnerBanner(nameList, numberList, assignedNumbers) {
   // decrement every element in the numberList by 1 to align with JavaScript's 0-based indexing
   const adjustedNumberList = numberList.map(num => num - 1);
-  let missingNumbers = [];
-
+  
   // filter out names at indices specified in adjustedNumberList
   const filteredNames = nameList.filter((name, index) => !adjustedNumberList.includes(index));
-
-  for (let i = 1; i <= totalNumbers; i++) {
-    if (!numberList.includes(i)) {
-      missingNumbers.push(i);
-    }
-  }  
-
-  document.getElementById("winner-number-ball").innerHTML = missingNumbers[0];
+  assignedNumbers = assignedNumbers.filter(number => !numberList.includes(number));
+  
+  document.getElementById("winner-number-ball").innerHTML = assignedNumbers[0];
   document.getElementById("winner-name").innerHTML = filteredNames[0];
 
   const winnerContainer = document.getElementById("winner-container");
@@ -62,6 +99,25 @@ export function generateWinnerBanner(nameList, numberList, totalNumbers) {
   elements.forEach(element => element.classList.add('uncopiable'));
 }
 
+export function handleClickImageNotAdded(gridItem, nameList, numberList, number, totalNumbers, assignedNumbers) {
+  return function (e) {
+    if (e.ctrlKey) {
+        removeClassClickListener(gridItem, nameList, numberList, number, totalNumbers)(e);
+      } else {
+        addClassClickListener(gridItem, nameList, numberList, number, totalNumbers, assignedNumbers)(e);
+      }      
+  }
+}
+
+export function handleClickImageAdded(gridItem, nameList, numberList, number, totalNumbers, assignedNumbers) {
+  return function (e) {
+    if (e.ctrlKey) {
+      showItemClickListener(gridItem, nameList, numberList, number, totalNumbers)(e);
+    } else {
+      hideItemClickListener(gridItem, nameList, numberList, number, totalNumbers, assignedNumbers)(e);
+    }  
+  }
+}
 
 export function addClassClickListener(item, nameList, numberList, number, totalNumbers, assignedNumbers) {
   return function (event) {
@@ -74,8 +130,7 @@ export function addClassClickListener(item, nameList, numberList, number, totalN
       }
       else if (totalNumbers - 1 == numberList.length){
         
-
-        generateWinnerBanner(nameList, numberList, totalNumbers);
+        generateWinnerBanner(nameList, numberList, assignedNumbers);
       }
       else {
         hiddenContainer = document.getElementById("elimination-ball");
@@ -96,6 +151,7 @@ export function removeClassClickListener(item, nameList, numberList, number, tot
 
 export function hideItemClickListener(item, nameList, numberList, number, totalNumbers, assignedNumbers) {
   return function (event) {
+     
     if (window.getComputedStyle(item).opacity == "1") {
       item.style.opacity = 0.25;
       removeNumberFromPanel(nameList, numberList, number, totalNumbers);
@@ -106,8 +162,7 @@ export function hideItemClickListener(item, nameList, numberList, number, totalN
       }
       else if (totalNumbers - 1 == numberList.length){
         
-
-        generateWinnerBanner(nameList, numberList, totalNumbers);
+        generateWinnerBanner(nameList, numberList, assignedNumbers);
       }
       else {
         hiddenContainer = document.getElementById("elimination-ball");
@@ -130,6 +185,7 @@ export function hideContainer(hiddenContainer) {
   hiddenContainer.style.opacity = "0";
   hiddenContainer.style.display = "none";
   hiddenContainer.style.zIndex = "-999";
+
 }
 
 
@@ -201,6 +257,7 @@ export function resetContainer(hiddenContainer) {
   pandelGrid.appendChild(overlay);
 
   timer = setTimeout(function () {
+    
     hideContainer(hiddenContainer);
     if (document.body.contains(overlay)) {
       document.getElementById("number-panel-grid").removeChild(overlay);

@@ -126,10 +126,61 @@
             <p class="ticket-number uncopiable"></p> -->
           </div>
         </div>
+      
+        <div class="grid-size-adjust">
+        <div class="custom-number-input">
+          <input
+            type="number"
+            class="grid-size-selector"
+            id="grid-size-selector"
+            min="1"
+            max="300"
+            value="1"
+          />
+          <div class="custom-arrows">
+            <div class="up-arrow" onclick="increment()">
+              <object
+                class="uncopiable"
+                data="/static/images/UpArrow.svg"
+                type=""
+              ></object>
+            </div>
+            <div class="down-arrow" onclick="decrement()">
+              <object
+                class="uncopiable"
+                data="/static/images/DownArrow.svg"
+                type=""
+              ></object>
+            </div>
+          </div>
+        </div>
+      </div>
+        
       </div>
     </div>
   </body>
   <script src="/static/scripts/responsivePage.js"></script>
   <script type="module" src="/static/scripts/generateGrids.js"></script>
   <script src="/static/scripts/script.js"></script>
+  <script>
+    
+function increment() {
+  document.getElementById("grid-size-selector").stepUp();
+}
+
+function decrement() {
+  document.getElementById("grid-size-selector").stepDown();
+}
+
+document.getElementById('grid-size-selector').addEventListener('change', function (event) {
+  let inputValue = parseInt(event.target.value);
+
+  if (inputValue > 300) {
+      event.target.value = 300;
+  } else if (inputValue < 1) {
+      event.target.value = 1;
+  }
+});
+
+  </script>
 </html>

@@ -136,7 +136,7 @@ body {
   display: grid;
   align-items: center;
   justify-items: center;
-  grid-template-rows: 15fr 6fr 20fr 1fr 18fr 40fr;
+  grid-template-rows: 15fr 6fr 20fr 1fr 18fr 35fr 5fr; /* Needs to be updated */
   grid-template-columns: 100fr;
   grid-template-areas:
     "Sidebar-Logo"
@@ -144,7 +144,9 @@ body {
     "Sidebar-Ball"
     "Progress-Bar"
     "Tickets-Number"
-    "Recent-Drawn";
+    "Recent-Drawn"
+    "Eliminate-Box";
+  
   width: 100%;
   height: 100%;
   font-family: var(--primary-font);
@@ -230,7 +232,7 @@ body {
   align-items: center;
   background-color: var(--recent-drawn-bg-color);
   width: 90%;
-  margin-bottom: 3%;
+  margin-bottom: 7%;
   border-radius: 10px;
   padding-bottom: 7%;
   padding-top: 7%;
@@ -322,7 +324,7 @@ body {
   align-items: center;
   border: 1px solid #F9FFD2;
   box-shadow: 0px 0px 10px 10px var(--final-border-box-shadow-color);
-  box-shadow: 0px 7px 70px 20px #DBFF0066;
+  /* box-shadow: 0px 7px 70px 20px var(--outerball-box-shadow-color); */
   z-index: -999;
   opacity: 0;
   transition: opacity 1s ease;
@@ -560,6 +562,7 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  
 }
 
 .winner-border {
@@ -643,3 +646,52 @@ body {
   flex-direction: column;
   font-family: var(--primary-font);
 } 
+
+.grid-size-adjust {
+  grid-area: Eliminate-Box;
+  width: 100%;
+  height: 100%;
+  margin-bottom: 4%;
+  box-sizing: content-box;
+}
+
+#grid-size-selector {
+  border-radius: 5px;
+  width: 100%;
+  color: #fff;
+  background-color: var(--recent-drawn-bg-color);
+  border: 1px solid var(--recent-drawn-bg-color);
+  text-align: center;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.custom-number-input {
+  display: flex;
+  position: relative;
+}
+
+.custom-arrows {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  position: absolute;
+  left: 77%;
+  height: 100%;
+}
+  
+.up-arrow,
+.down-arrow {
+  color: white;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}

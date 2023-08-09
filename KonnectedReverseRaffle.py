@@ -1,4 +1,4 @@
-import sys, time, subprocess
+import sys, time, subprocess, os
 from PyQt5.QtCore import QUrl, pyqtSlot, QThread, pyqtSignal, Qt
 from PyQt5.QtWebEngineWidgets import QWebEngineView
 from PyQt5.QtWidgets import QMainWindow, QApplication, QMenu, QProgressBar,QAction, QVBoxLayout, QLabel, QWidget, QSizePolicy
@@ -7,8 +7,9 @@ from PyQt5.QtWebEngineWidgets import QWebEnginePage
 import urllib3
 import ctypes
 
-myappid = 'tahiralauddin.konnected-reverse-raffle.1.1.0' # arbitrary string
-ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
+if os.name == 'nt':
+    myappid = 'tahiralauddin.konnected-reverse-raffle.1.1.3' # arbitrary string
+    ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
 
 PORT = 8323
 
@@ -34,6 +35,11 @@ class LoadingPage(QMainWindow):
     def __init__(self):
         super().__init__()
 
+        # Set up a separate thread to run subprocess command
+        self.subprocess_thread = SubprocessThread()
+        self.subprocess_thread.output_detected.connect(self.switch_to_browser)
+        self.subprocess_thread.start()
+        
         # Set the window size
         self.setMinimumWidth(1000)
         self.setMinimumHeight(650)
@@ -78,14 +84,6 @@ class LoadingPage(QMainWindow):
         self.setWindowTitle("Konnected Reverse Raffle")
         self.setWindowIcon(QIcon("images/logo/konnected-logo-icon.ico"))
         
-        self.setMinimumWidth(1000)
-        self.setMinimumHeight(650)
-
-        # Set up a separate thread to run subprocess command
-        self.subprocess_thread = SubprocessThread()
-        self.subprocess_thread.output_detected.connect(self.switch_to_browser)
-        self.subprocess_thread.start()
-
     def switch_to_browser(self):
         self.browser = Browser()
         self.setCentralWidget(self.browser)
@@ -124,7 +122,10 @@ class SubprocessThread(QThread):
     def run(self):
         # Detect if running as a PyInstaller package
         if getattr(sys, 'frozen', False):
-            command = f'konnected-server.exe runserver {PORT} --noreload'
+            if os.name == 'nt':
+                command = f'konnected-server.exe runserver {PORT} --noreload'
+            else:
+                command = f'../../../konnected-server.app/Contents/MacOS/konnected-server'
             self.process = subprocess.Popen(command, shell=True)
             # Check for output
             while True:

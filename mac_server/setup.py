@@ -2,7 +2,7 @@ from setuptools import setup
 import os
 
 DATA_FILES = [('', ['config.json'])]
-APP = ['reverseRaffle/flask-main.py']
+APP = ['reverseRaffle/konnected-server.py']
 
 DATA_DIRS = ['frontend/static', 'frontend/templates', 'frontend/media']
 
@@ -14,7 +14,7 @@ for data_dir in DATA_DIRS:
 OPTIONS = {
     'argv_emulation': True
 }
-with open('requirements-server-flask.txt', errors='ignore') as requirements_file:
+with open('mac_server/requirements.txt', errors='ignore') as requirements_file:
     INSTALL_REQUIRES = [line.strip() for line in requirements_file.readlines()]
 
 setup(

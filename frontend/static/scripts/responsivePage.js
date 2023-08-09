@@ -63,7 +63,10 @@ function responsivePage() {
     style.sheet.insertRule('.winner-name { font-size: ' + String((relativeFontSize * 80 ) /100) + 'px; }', 0)
     style.sheet.insertRule('.winner-prize { font-size: ' + String((relativeFontSize * 40 ) /100) + 'px; }', 0)
     style.sheet.insertRule('.winner-prize-name { font-size: ' + String((relativeFontSize * 40 ) /100) + 'px; }', 0)
-    
+    style.sheet.insertRule('.up-arrow, .down-arrow { height: ' + String((relativeFontSize * 60)/ 100) + 'px !important; width: ' + String((relativeFontSize * 60)/ 100) + 'px !important;}', 0);
+    style.sheet.insertRule('.up-arrow > object, .down-arrow > object { height: ' + String((relativeFontSize * 25)/ 100) + 'px !important; }', 0);
+    style.sheet.insertRule('#grid-size-selector { height: ' + String((relativeFontSize * 90)/ 100) + 'px; font-size: ' + String((relativeFontSize * 35)/ 100) + 'px; }', 0);
+  
   } catch (error) {
     console.log(error)      
   }

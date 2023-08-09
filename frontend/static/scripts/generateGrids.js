@@ -1,5 +1,5 @@
 import { removeClassClickListener, hideItemClickListener, 
-  resetContainer, showItemClickListener, addClassClickListener, generateFinalGrid, removeNumberFromPanel } from "./eliminateParticipants.js";
+  resetContainer, showItemClickListener, addClassClickListener, generateFinalGrid, removeNumberFromPanel, handleClickImageNotAdded, handleClickImageAdded } from "./eliminateParticipants.js";
 import { setEventInfoName, setEventInfoDate, addBackground } from "./utils.js";
 
 let host = 'http://localhost:8323'
@@ -16,6 +16,7 @@ var nameList = [];
 var imageUrl = null;
 
 let barCodeNumber = '';
+
 
 function qrCodeEliminator(event) {  
   var elements;
@@ -118,29 +119,14 @@ document.addEventListener("DOMContentLoaded", function () {
         paragraph.className = "uncopiable";
         paragraph.textContent = number.toString();
 
-
+        
         gridItem.appendChild(paragraph);
-
+        
         if (clickable) {
-          console.log(window.getComputedStyle(document.getElementById("number-panel-grid")).getPropertyValue('background-image'))
-          if (window.getComputedStyle(document.getElementById("number-panel-grid")).getPropertyValue('background-image') !== `url("${host}/home/null")`) {
-            gridItem.addEventListener(
-              "click",
-              hideItemClickListener(gridItem, nameList, numberList, number, totalNumbers, assignedNumbers)
-            );
-            gridItem.addEventListener(
-              "dblclick",
-              showItemClickListener(gridItem, nameList, numberList, number, totalNumbers)
-            );
-            } else {
-            gridItem.addEventListener(
-              "click",
-              addClassClickListener(gridItem, nameList, numberList, number, totalNumbers, assignedNumbers)
-            );
-            gridItem.addEventListener(
-              "dblclick",
-              removeClassClickListener(gridItem, nameList, numberList, number, totalNumbers)
-            );
+          if (imageUrl != null) {
+            gridItem.addEventListener('click', handleClickImageAdded(gridItem, nameList, numberList, number, totalNumbers, assignedNumbers))
+          } else {
+            gridItem.addEventListener('click', handleClickImageNotAdded(gridItem, nameList, numberList, number, totalNumbers, assignedNumbers))
           }
         }
         grid.appendChild(gridItem);
@@ -172,8 +158,13 @@ document.addEventListener("DOMContentLoaded", function () {
   .then(data => {
     imageUrl = data.background_image[0];
     let lastIndex = imageUrl.lastIndexOf(".");
-    imageUrl = `${imageUrl.slice(0, lastIndex)} Large${imageUrl.slice(lastIndex)}`;
-
+    if (imageUrl != 'null' && imageUrl != 'undefined') {
+      // Check whether the image provided is coming from static OR media
+      if (!imageUrl.startsWith('/media/Background-Image')) 
+      imageUrl = `${imageUrl.slice(0, lastIndex)} Large${imageUrl.slice(lastIndex)}`;
+    } else {
+      imageUrl = null;
+    }
     const event_name = data.event_name
     const event_date = data.event_date
     const location = data.location
@@ -183,7 +174,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const theme = data.theme[0].toLowerCase()
     const keypad_checked = data.keypad_checked[0]
     const barcode_checked = data.barcode_checked[0]
-            
+    const logo_image_path = data.logo_image_path || null;
+
     let themes;
     fetch('/static/themes.json')
     .then(response => response.json())
@@ -194,7 +186,6 @@ document.addEventListener("DOMContentLoaded", function () {
       .catch((error) => {
         console.error('Error:', error);
       });
-
 
       // Grid Size Logic
       let grid_size = data.grid_size
@@ -221,9 +212,12 @@ document.addEventListener("DOMContentLoaded", function () {
       document.getElementById('event-name').innerHTML = event_name
       document.getElementById('event-date').innerHTML = event_date
       document.getElementById('banner-text').innerHTML = ads_banner_message
-      
-      // Change this part
       document.getElementById("winner-prize-name").innerHTML = prize;
+      
+      if (logo_image_path[0] != 'undefined') {
+        document.getElementById("logo-image").setAttribute('src', '/media/Logo Uploaded.png')
+      }
+
   })
   .catch((error) => {
     console.error('Error:', error);
