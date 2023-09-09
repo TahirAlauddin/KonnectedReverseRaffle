@@ -1,9 +1,8 @@
 import sys, time, subprocess, os
-from PyQt5.QtCore import QUrl, pyqtSlot, QThread, pyqtSignal, Qt
-from PyQt5.QtWebEngineWidgets import QWebEngineView
-from PyQt5.QtWidgets import QMainWindow, QApplication, QMenu, QProgressBar,QAction, QVBoxLayout, QLabel, QWidget, QSizePolicy
-from PyQt5.QtGui import QContextMenuEvent, QIcon, QFont
-from PyQt5.QtWebEngineWidgets import QWebEnginePage
+from PyQt5.QtCore import QUrl, QThread, pyqtSignal, Qt
+from PyQt5.QtWebEngineWidgets import QWebEngineView, QWebEnginePage
+from PyQt5.QtWidgets import QMainWindow, QApplication, QMenu, QProgressBar, QAction, QVBoxLayout, QLabel, QWidget, QSizePolicy
+from PyQt5.QtGui import QIcon, QFont
 import urllib3
 import ctypes
 

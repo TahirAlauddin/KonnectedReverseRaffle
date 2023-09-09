@@ -8,17 +8,26 @@ import logging
 from utils import (set_license_key_in_config, get_license_key_from_config,
                     get_dynamodb_table, license_key_is_valid)
 
+# Configure the logging level
+logging.basicConfig(level=logging.INFO)
+
+# Get the logger for the current module
 logger = logging.getLogger(__name__)
+
+# Create a handler that writes log messages to a file
+handler = logging.FileHandler('error.log')
+
+# Create a formatter that specifies the format of the log messages
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+
 PORT = 8323
 
-
-
-# Production
+# For Production
 # app = Flask(__name__,
 #             static_folder='frontend/static/', static_url_path='/static/',
 #             template_folder='frontend/templates')
 
-# Development
+# For Development
 app = Flask(__name__,
             static_folder='../frontend/static/', static_url_path='/static/',
             template_folder='../frontend/templates')
@@ -187,7 +196,7 @@ def save_image():
             with open(file_path, 'wb') as f:
                 f.write(img_data)
 
-            return jsonify({"message": "Image saved successfully."})
+            return jsonify({"message": "Image saved successfully.", 'file_path': file_path})
         else:
             return jsonify({"error": "Wrong method type."})
 
@@ -205,13 +214,14 @@ def view_validate_license_key(licenseKey):
         # If license exists, write/update it to config file
         if licenseCreatedDate:
             set_license_key_in_config(licenseKey, licenseCreatedDate)
-        return jsonify({'success': 'License Key successfully validated'}), 200
+            return jsonify({'success': 'License Key successfully validated'}), 200
+        return jsonify({'error': 'License Key couldn\'t be validated'}), 404
 
     except Exception as e:
         from traceback import print_exc
         logger.error(e)
         print_exc()
-        return jsonify({'error': str(e)}, status=500)
+        return jsonify({'error': str(e)}), 500
 
 
 @app.route('/licenseKeyIsValid/')
