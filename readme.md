@@ -1,14 +1,9 @@
-pyinstaller -Fw --onefile --name=konnected-reverse-raffle --icon=images/logo/konnected-logo-icon.ico main.py
-
-pyinstaller --name=konnected-server --onefile --additional-hooks-dir=hooks --add-data="frontend/static;frontend/static" --add-data="frontend/templates;frontend/templates" --add-data="frontend/media;frontend/media" manage.py
-
-
-Ratio:
-    1000x650
 
 
 
 # Konnected Reverse Raffle
+<img src="./images/logo/konnected-logo.png" alt="Konnected Logo" width="400" height="200" />
+
 
 Konnected Reverse Raffle is a versatile web application created using `Python`, `Django`, `HTML`, and `CSS`. Additionally, it can be installed as a desktop application rendered with `PyQt5`. This project was completed, involving both backend and frontend development. The primary purpose of this application is to simplify the process of hosting and managing events, particularly for users who want to display event details on a projector.
 
@@ -107,6 +102,9 @@ pyinstaller -Fw --onefile --name=konnected-reverse-raffle --icon=images/logo/kon
 pyinstaller --name=konnected-server --onefile --additional-hooks-dir=hooks --add-data="frontend/static;frontend/static" --add-data="frontend/templates;frontend/templates" --add-data="frontend/media;frontend/media" manage.py
 ```
 
+## Ratio
+    1000x650
+
 ## Themes
 
 Konnected Reverse Raffle offers the following themes for personalization:
@@ -120,8 +118,12 @@ Konnected Reverse Raffle offers the following themes for personalization:
 - Industrial
 - Midnight
 
+
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
 
 For any questions, issues, or feedback, please reach out to the project maintainers.
+
+
+## [Screenshots](./images/screenshots/)
